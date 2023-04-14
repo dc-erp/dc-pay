@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from 'express'
-import jwt from '../config/jwt'
+import jwt from 'jsonwebtoken'
 import authorizerDao from './dao'
 import userService from '../settings/user-management/users/service'
 import { encrypt } from '../utils/encrypt'
@@ -206,9 +206,9 @@ router.get('/navigation', async (req, res, next) => {
 })
 
 
-router.get('/me', async (req, res, next) => {
+router.get('/me', async (req: any, res, next) => {
     try {
-        if (!req.user)
+        if (!req?.user)
             throw new Error("User doesn't exist")
         res.send({ userData: req.user, })
     } catch (err) {
@@ -226,9 +226,14 @@ router.post('/login', async (req, res, next) => {
         )
         if (!isMatch)
             throw createError.Unauthorized('Invalid Username and/or Password')
-        const accessToken = await jwt.signAccessToken(user)
-        const refreshToken = await jwt.signRefreshToken(user)
-        res.send({ accessToken, refreshToken })
+        const accessToken = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRATION })
+        // const refreshToken = await jwt.signRefreshToken(user)
+
+        res.send({ 
+            accessToken,
+            userData: { ...user, password: undefined }
+
+        })
     } catch (err) {
         res.status(400).send(err)
         next(err)
