@@ -1,0 +1,5 @@
+PGHOST=localhost
+PGUSER=dcpayrolladmin
+PGPORT=5432
+PGDATABASE=dcpayrolldb
+PGPASSWORD=maxmax
