@@ -43,7 +43,7 @@ const emptyValues = {
 }
 
 
-const AddUser = ({ formData }: any) => {
+const AddRole = ({ formData }: any) => {
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
 
@@ -119,4 +119,4 @@ const AddUser = ({ formData }: any) => {
     )
 }
 
-export default AddUser
+export default AddRole

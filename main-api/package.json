@@ -4,15 +4,15 @@
   "description": "",
   "main": "./dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --build ",
     "start": "tsc & node .",
     "dev": "tsc -w & nodemon .",
     "develop": "nodemon .",
     "compile": "tsc",
     "watch": "tsc -w",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint --max-warnings 0 \"{src,apps,libs,test,testHTTPS}/**/*.ts\"",
-    "lint-fix": "eslint \"{src,apps,libs,test,testHTTPS}/**/*.ts\" --fix"
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
@@ -27,11 +27,15 @@
     "@types/node": "^18.11.18",
     "@types/passport": "^1.0.11",
     "@types/uuid": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "eslint": "^8.38.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",

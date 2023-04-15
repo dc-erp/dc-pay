@@ -210,7 +210,13 @@ router.get('/me', async (req: any, res, next) => {
     try {
         if (!req?.user)
             throw new Error("User doesn't exist")
-        res.send({ userData: req.user, })
+        const user = await userService.getInfo(req?.user?.id)
+        res.send({ userData: {
+            id: user.id,
+            role: user.role_name,
+            fullName: `${user.first_name} ${user.last_name}`,
+            username: user.email,
+        }, })
     } catch (err) {
         res.status(400).send(err)
         next(err)
