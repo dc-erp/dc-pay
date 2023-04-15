@@ -4,7 +4,7 @@ import { compare } from '../../../utils/encrypt'
 
 
 
-export const create = async (newUser: any): Promise<string> => {
+export const create = async (newUser: any): Promise<any> => {
     const id = uuid()
     const {
         firstName,
@@ -98,7 +98,7 @@ export const getUserRights = async (userId: string) => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const res = await pool.query(`
     SELECT 
     ua.id, 
@@ -116,7 +116,7 @@ export const getAllFromOrganization = async (organizationId: string) => {
 }
 
 
-// export const getAllFromOrganization = async (organizationId: string) => {
+// export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
 //     const res = await pool.query(`
 //     SELECT 
 //     ua.id, 

@@ -5,12 +5,12 @@ import userService from '../../settings/user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', employee = null, transaction = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const payTransactions = await payTransactionService.getAllFromOrganization(organizationId)
             const renamedPayTransactions = payTransactions.map(({
                 id,
@@ -57,7 +57,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const createdPayTransaction = await payTransactionService.create({ ...req.body.data })
             res.send(createdPayTransaction)
@@ -69,7 +69,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await payTransactionService.deletePayTransaction(String(id))
@@ -82,7 +82,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedPayTransaction = await payTransactionService.updatePayTransaction(req.body.data)
             res.send(updatedPayTransaction)

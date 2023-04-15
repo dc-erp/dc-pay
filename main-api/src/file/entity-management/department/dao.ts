@@ -40,7 +40,7 @@ export const create = async (newDepartment: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: departments } = await pool.query(`
     SELECT 
     department.id, 

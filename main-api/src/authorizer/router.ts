@@ -2,8 +2,6 @@ import { Request, Response, NextFunction, Router } from 'express'
 import jwt from 'jsonwebtoken'
 import authorizerDao from './dao'
 import userService from '../settings/user-management/users/service'
-import { encrypt } from '../utils/encrypt'
-import { authorizeUser } from '../config/session'
 
 const createError = require('http-errors')
 
@@ -192,11 +190,11 @@ const defaultNavMenu = [
 ]
 
 
-router.get('/navigation', async (req, res, next) => {
+router.get('/navigation', async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.headers['x-user-id'];
-        const { role_id: roleId } = await userService.getUserAuthorizationInfo(String(userId))
-        const navMenu = await authorizerDao.getNavigationMenu(roleId)
+        // const userId = req.headers['x-user-id'];
+        // const { role_id: roleId } = await userService.getUserAuthorizationInfo(String(userId))
+        // const navMenu = await authorizerDao.getNavigationMenu(roleId)
         // res.send(navMenu)
         res.send(defaultNavMenu)
     } catch (err) {
@@ -206,11 +204,12 @@ router.get('/navigation', async (req, res, next) => {
 })
 
 
-router.get('/me', async (req: any, res, next) => {
+router.get('/me', async (req: Request, res, next) => {
     try {
-        if (!req?.user)
+        const requestUser = req.user as any
+        if (!requestUser || typeof requestUser.id !== 'string')
             throw new Error("User doesn't exist")
-        const user = await userService.getInfo(req?.user?.id)
+        const user = await userService.getInfo(requestUser.id)
         res.send({ userData: {
             id: user.id,
             role: user.role_name,
@@ -224,7 +223,7 @@ router.get('/me', async (req: any, res, next) => {
 })
 
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { isMatch, user } = await authorizerDao.comparePassword(
             req.body?.email,

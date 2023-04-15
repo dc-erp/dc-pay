@@ -102,14 +102,14 @@ export const updateMenuLevelOne = async (updatedMenu: any): Promise<string> => {
 }
 
 export const populateForRole = async (menuId: any, roles: any): Promise<any> => {
-    roles.map(async ({ id: roleId }) => {
+    roles.map(async ({ id: roleId }: any) => {
         await create({ menuId, roleId, editAllowed: true, readAllowed: true })
     })
     return true
 }
 
 export const populateForMenu = async (roleId: any, menus: any): Promise<any> => {
-    menus.map(async ({ id: menuId }) => {
+    menus.map(async ({ id: menuId }: any) => {
         await create({ roleId, menuId, editAllowed: true, readAllowed: true })
     })
     return true

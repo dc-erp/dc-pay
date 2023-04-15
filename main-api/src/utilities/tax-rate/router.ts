@@ -5,12 +5,12 @@ import userService from '../../settings/user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
             const { q = '', } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const queryLowered = q.toString().toLowerCase()
             const taxRates = await taxRateService.getAllFromOrganization(organizationId)
             const renamedTaxRates = taxRates.map(({
                 id,
@@ -46,7 +46,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId, branch_id: branchId } = await userService.getUserAuthorizationInfo(userId)
@@ -60,7 +60,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await taxRateService.deleteTaxRate(String(id))
@@ -73,7 +73,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedTaxRate = await taxRateService.updateTaxRate(req.body.data)
             res.send(updatedTaxRate)

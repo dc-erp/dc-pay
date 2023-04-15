@@ -32,7 +32,7 @@ export const create = async (newMainParameterDefinition: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: mainParameterDefinitions } = await pool.query(`
     SELECT c.id, c.parent_parameter_id as parameter_id, c.parameter_name AS sub_parameter_name, p.parameter_name AS main_parameter_name
     FROM parameter_definition c

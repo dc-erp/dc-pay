@@ -1,16 +1,16 @@
-import { Response, NextFunction, Router } from 'express'
+import { Request, Response, NextFunction, Router } from 'express'
 import menuLevelOneService from './service'
 import userService from '../../../user-management/users/service'
 
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const menuLevelOnes = await menuLevelOneService.getAllFromOrganization(organizationId)
             const renamedMenuLevelOnes = menuLevelOnes.map(({ id, menu_title, menu_path }) => ({
                 id,
@@ -37,7 +37,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
@@ -52,7 +52,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await menuLevelOneService.deleteMenuLevelOne(String(id))
@@ -65,7 +65,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedMainParameterDefinition = await menuLevelOneService.updateMenuLevelOne(req.body.data)
             res.send(updatedMainParameterDefinition)

@@ -5,12 +5,12 @@ import userService from '../../../settings/user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const mainParameterDefinitions = await subParameterDefinitionService.getAllFromOrganization(organizationId)
             const renamedMainParameterDefinitions = mainParameterDefinitions.map(({ id, parameter_id, main_parameter_name, sub_parameter_name }) => ({
                 id,
@@ -37,7 +37,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
@@ -52,7 +52,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await subParameterDefinitionService.deleteMainParameterDefinition(String(id))
@@ -65,7 +65,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedMainParameterDefinition = await subParameterDefinitionService.updateMainParameterDefinition(req.body.data)
             res.send(updatedMainParameterDefinition)

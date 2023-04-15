@@ -5,12 +5,12 @@ import userService from '../../user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '', } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const holidays = await holidayService.getAllFromOrganization(organizationId)
             const renamedHolidays = holidays.map(({ id, branch_name, holiday_name, holiday_date }) => ({
                 id,
@@ -38,7 +38,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { branch_id: branchId, organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
@@ -53,7 +53,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await holidayService.deleteHoliday(String(id))
@@ -66,7 +66,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedMainParameterDefinition = await holidayService.updateHoliday(req.body.data)
             res.send(updatedMainParameterDefinition)

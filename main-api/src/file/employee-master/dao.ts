@@ -19,8 +19,8 @@ export const create = async (newMenu: any): Promise<any> => {
         pensionNumber,
         tinNumber,
         workingDays,
-        employeeBank,
-        employeeBankAccount,
+        // employeeBank,
+        // employeeBankAccount,
         employeeBranch,
         employeeDepartment,
         employeePosition
@@ -77,7 +77,7 @@ export const create = async (newMenu: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: employees } = await pool.query(`
     SELECT 
     * 

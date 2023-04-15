@@ -1,16 +1,16 @@
-import { Response, NextFunction, Router } from 'express'
+import {Request, Response, NextFunction, Router } from 'express'
 import membershipService from './service'
 import userService from '../../settings/user-management/users/service'
 
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', employee = null, transaction = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '', } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const memberships = await membershipService.getAllFromOrganization(organizationId)
             const renamedMemberships = memberships.map(({
                 id,
@@ -53,7 +53,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const createdMembership = await membershipService.create({ ...req.body.data })
             res.send(createdMembership)
@@ -65,7 +65,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await membershipService.deleteMembership(String(id))
@@ -78,7 +78,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedMembership = await membershipService.updateMembership(req.body.data)
             res.send(updatedMembership)

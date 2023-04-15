@@ -3,23 +3,27 @@
     "version": "2.0.0",
     "private": true,
     "scripts": {
-      "dev-win": "npm-run-all --parallel dashboard:dev main-api:dev main-api:develop",
-      "install": "npm-run-all --parallel dashboard:install main-api:install",
-      "build": "npm-run-all --parallel dashboard:build main-api:build",
-      "start": "npm-run-all --parallel dashboard:start main-api:start",
-      "dashboard:start": "cd dashboard && npm run start",
-      "main-api:start": "cd main-api && npm run start",
-      "dashboard:dev": "cd dashboard && npm run dev",
-      "main-api:dev": "cd main-api && npm run dev",
-      "main-api:develop": "cd main-api && npm run develop",
-      "dashboard:install": "cd dashboard && npm i",
-      "main-api:install": "cd main-api && npm i",
-      "dashboard:build": "cd dashboard && npm run build",
-      "main-api:build": "cd main-api && npm run build",
-      "dashboard:lint": "cd dashboard && npm run lint",
-      "main-api:lint": "cd main-api && npm run lint"
+        "dev-win": "npm-run-all --parallel dashboard:dev main-api:dev main-api:develop",
+        "install": "npm-run-all --parallel dashboard:install main-api:install",
+        "build": "npm-run-all --parallel dashboard:build main-api:build",
+        "start": "npm-run-all --parallel dashboard:start main-api:start",
+        "up": "docker-compose up",
+        "up-dev": "npm-run-all --parallel dashboard:up-dev main-api:up-dev",
+        "dashboard:start": "cd dashboard && npm run start",
+        "main-api:start": "cd main-api && npm run start",
+        "dashboard:dev": "cd dashboard && npm run dev",
+        "main-api:dev": "cd main-api && npm run dev",
+        "main-api:develop": "cd main-api && npm run develop",
+        "dashboard:install": "cd dashboard && npm i",
+        "main-api:install": "cd main-api && npm i",
+        "dashboard:build": "cd dashboard && npm run build",
+        "main-api:build": "cd main-api && npm run build",
+        "dashboard:lint": "cd dashboard && npm run lint",
+        "main-api:lint": "cd main-api && npm run lint",
+        "dashboard:up-dev": "cd dashboard && docker-compose -f ./docker-compose.yml up",
+        "main-api:up-dev": "cd main-api && docker-compose -f ./docker-compose.yml up"
     },
     "dependencies": {
-      "npm-run-all": "^4.1.5"
+        "npm-run-all": "^4.1.5"
     }
-  }
+}

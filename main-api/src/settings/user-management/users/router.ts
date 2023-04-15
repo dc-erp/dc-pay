@@ -6,7 +6,7 @@ const router = Router()
 
 
 router.get('/:id',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             const userData = await userService.getInfo(String(id))
@@ -18,12 +18,12 @@ router.get('/:id',
     })
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const userAuthInfo = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const users = await userService.getAllFromOrganization(userAuthInfo)
             const renamedUsers = users.map(({ id, role_id, first_name, last_name, email, role_name }) => ({
                 id,
@@ -57,7 +57,7 @@ router.get('/',
 
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const userAuthInfo = await userService.getUserAuthorizationInfo(userId)
@@ -73,7 +73,7 @@ router.post('/',
 
 router.put('/',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedUser = await userService.updateUser(req.body.data)
             res.send(updatedUser)
@@ -87,7 +87,7 @@ router.put('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await userService.deleteUser(String(id))

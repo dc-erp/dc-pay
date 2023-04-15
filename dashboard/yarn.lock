@@ -1400,6 +1400,18 @@ apexcharts-clevision@3.28.5:
     svg.resize.js "^1.4.3"
     svg.select.js "^3.0.1"
 
+apexcharts@^3.18.0:
+  version "3.38.0"
+  resolved "https://registry.npmjs.org/apexcharts/-/apexcharts-3.38.0.tgz"
+  integrity sha512-VLVdrPf5LD+a9THkPkxpdjWjPcjITsN/9C2Z1G4MYzhR31hR+Pe+DextbI0ZY220UAKnhBFLgKOtPOum1ArBWw==
+  dependencies:
+    svg.draggable.js "^2.2.2"
+    svg.easing.js "^2.0.0"
+    svg.filter.js "^2.0.2"
+    svg.pathmorphing.js "^0.1.3"
+    svg.resize.js "^1.4.3"
+    svg.select.js "^3.0.1"
+
 argparse@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/argparse/-/argparse-2.0.1.tgz"

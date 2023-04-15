@@ -1,22 +1,22 @@
-import { Response, NextFunction, Router } from 'express'
+import { Request, Response, NextFunction, Router } from 'express'
 import rolesService from './service'
 
 
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '', } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const roles = await rolesService.getAllFromOrganization(q, userId)
-            const renamedRoles = roles.map(({ id, role_name }) => ({
+            const renamedRoles = roles.map(({ id, role_name }: any) => ({
                 id,
                 roleName: role_name,
             }));
             const filteredData = renamedRoles.filter(
-                role =>
+                (role: any) =>
                 (
                     role.roleName.toLowerCase().includes(queryLowered)
                 )
@@ -34,7 +34,7 @@ router.get('/',
 
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const newRole = req.body.data
@@ -49,7 +49,7 @@ router.post('/',
 
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await rolesService.deleteRole(String(id))
@@ -62,7 +62,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedUser = await rolesService.updateRole(req.body.data)
             res.send(updatedUser)

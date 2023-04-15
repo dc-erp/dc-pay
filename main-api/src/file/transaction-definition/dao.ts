@@ -78,7 +78,7 @@ export const create = async (newTransactionDefinition: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: employees } = await pool.query(`
     SELECT 
     transaction_definition.id,

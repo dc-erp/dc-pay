@@ -1,10 +1,10 @@
-
+import {Request } from 'express'
 import branchDao from './dao'
 import roleBranchService from '../../../settings/rights-management/branch/service'
 
 
-const create = async (req: any, userAuthInfo: any): Promise<string> => {
-    const { organization_id: organizationId, branch_id: branchId } = userAuthInfo
+const create = async (req: Request, userAuthInfo: any): Promise<string> => {
+    const { organization_id: organizationId } = userAuthInfo
     const newMenu = req.body.data
     newMenu.organizationId = organizationId
     const branch = await branchDao.create({ ...newMenu })
@@ -26,7 +26,7 @@ const deleteBranch = async (branchId: string): Promise<any> => {
 }
 
 
-const updateBranch = async (menuLevelData): Promise<any> => await branchDao.updateBranch(menuLevelData)
+const updateBranch = async (menuLevelData: any): Promise<any> => await branchDao.updateBranch(menuLevelData)
 
 
 export default {

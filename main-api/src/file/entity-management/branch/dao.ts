@@ -32,7 +32,7 @@ export const create = async (newMenu: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: branches } = await pool.query(`
     SELECT id, branch_code, branch_name
     FROM branch

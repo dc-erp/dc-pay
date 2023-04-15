@@ -2,7 +2,7 @@ import authorizerDao from './dao'
 // import roleRightService from '../settings/rights-management/menu/service'
 
 // const authorizeRights = (rights: string[]) => {
-//     return async (req: any, res: any, next: any) => {
+//     return async (req: Request, res: any, next: any) => {
 //         const routeName = req.baseUrl.slice(8);
 //         const userId = req.headers['x-user-id'];
 //         let hasRights = true;

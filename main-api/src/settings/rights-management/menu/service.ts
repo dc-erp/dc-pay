@@ -1,9 +1,10 @@
+import {Request } from 'express'
 import menuRightsDao from './dao'
 import roleService from '../../user-management/roles/service'
 import menuService from '../../general-setup/menu-setup/service'
 
 
-const create = async (req: any, organizationId: string): Promise<string> => {
+const create = async (req: Request, organizationId: string): Promise<string> => {
     const newMenu = req.body.data
     newMenu.organizationId = organizationId
     newMenu.menuPath = newMenu.menuTitle.toLowerCase().replace(/ /g, '-')
@@ -20,7 +21,7 @@ const deleteMenuLevelOne = async (userId: string): Promise<any> => await menuRig
 
 
 
-const updateMenuRight = async (menuRightData): Promise<any> => {
+const updateMenuRight = async (menuRightData: any): Promise<any> => {
     const updatedMenuRight = menuRightData
     if (updatedMenuRight.readAllowed)
         return await menuRightsDao.updateMenuRightReadAllowed(updatedMenuRight)

@@ -1,9 +1,10 @@
 
+import { Request  } from 'express'
 import userDao from './dao'
 import { encrypt } from '../../../utils/encrypt'
 
-const create = async (req: any, userAuthInfo: any): Promise<string> => {
-    const { organization_id: organizationId, branch_id: branchId } = userAuthInfo
+const create = async (req: Request, userAuthInfo: any): Promise<string> => {
+    const { organization_id: organizationId } = userAuthInfo
     const newUser = req.body.data
     newUser.password = await encrypt(newUser.password)
     newUser.organizationId = organizationId
@@ -46,7 +47,7 @@ const deleteUser = async (userId: string): Promise<any> => {
 }
 
 
-const updateUser = async (userData): Promise<any> => {
+const updateUser = async (userData: any): Promise<any> => {
     const updatedUser = await userDao.updateUser(userData)
     return updatedUser
 }

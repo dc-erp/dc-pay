@@ -7,13 +7,13 @@ import userService from '../../user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const userAuthInfo = await userService.getUserAuthorizationInfo(userId)
             const roleId = req.query.role
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const branchRights = await branchRightsService.getAllFromOrganization(userAuthInfo, roleId)
             const renamedBranchRight = branchRights.map(({ id, role_id, role_name, branch_name, allowed }) => ({
                 id,
@@ -41,7 +41,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const organizationId = req.headers['x-organization-id'];
             const createdMainParameterDefinition = await branchRightsService.create(req, String(organizationId))
@@ -54,7 +54,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await branchRightsService.deleteBranchRight(String(id))
@@ -67,7 +67,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedBranchRight = await branchRightsService.updateBranchRight(req.body.data)
             res.send(updatedBranchRight)
