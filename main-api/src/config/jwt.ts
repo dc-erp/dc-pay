@@ -7,12 +7,13 @@ const createError = require('http-errors')
 const signAccessToken = (userData: any) => {
     return new Promise((resolve, reject) => {
         const payload = userData
-        const secret = 'dd5f3089-40c3-403d-af14-d0c228b05cb4'
+        const secret = process.env.NEXT_PUBLIC_JWT_SECRET
         const options = {
-            expiresIn: '1d',
+            expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIREATION,
             issuer: 'dcPayrollToken',
             audience: userData.email
         }
+
         jwt.sign(payload, secret, options, (err: Error, token) => {
             if (err) reject(createError.InternalServerError())
             resolve(token)
@@ -24,9 +25,9 @@ const signAccessToken = (userData: any) => {
 const signRefreshToken = (userData: any) => {
     return new Promise((resolve, reject) => {
         const payload = userData
-        const secret = 'trc'
+        const secret = process.env.NEXT_PUBLIC_JWT_REFRESH_TOKEN
         const options = {
-            expiresIn: '1d',
+            expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIREATION,
             issuer: 'dcPayrollToken',
             audience: userData.email
         }
@@ -38,6 +39,7 @@ const signRefreshToken = (userData: any) => {
                 }
             })
             resolve(token)
+            
         })
 })
 }
@@ -46,7 +48,7 @@ const verifyAccessToken = (req: any, res: Response, next: NextFunction) => {
     if (!req.headers['authorization']) return next(createError.Unauthorized())
     const authHeader = req.headers['authorization']
     const token = authHeader.split(' ')[1]
-    jwt.verify(token, 'dd5f3089-40c3-403d-af14-d0c228b05cb4', (err: Error, payload: any) => {
+    jwt.verify(token, process.env.NEXT_PUBLIC_JWT_SECRET, (err: Error, payload: any) => {
         if (err) {
             const message = err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message
             return next(createError.Unauthorized(message))
@@ -58,7 +60,7 @@ const verifyAccessToken = (req: any, res: Response, next: NextFunction) => {
 
 export const verifyRefreshToken = async (refreshToken: any): Promise<any> => {
     return new Promise((resolve, reject) => {
-        jwt.verify(refreshToken, 'trc', (err: Error, payload: any) => {
+        jwt.verify(refreshToken, process.env.NEXT_PUBLIC_JWT_REFRESH_TOKEN_SECRET, (err: Error, payload: any) => {
             if (err) return reject(createError.Unauthorized())
             const user = payload.aud
             client.GET(user, (err: Error, result: any) => {

@@ -113,6 +113,25 @@ const navigation = (): VerticalNavItemsType => {
       ]
     },
     {
+      title: 'Settings',
+      icon: 'AccountOutline',
+      children: [
+          {
+              title: 'General Setup',
+              path: '/apps/settings/general-setup'
+          },
+          {
+              title: 'User Management',
+              path: '/apps/settings/user-management'
+          },
+          {
+              title: 'Rights Management',
+              path: '/apps/settings/rights-management'
+          },
+      ]
+  },
+    
+    {
       title: 'Pages',
       icon: 'mdi:file-document-outline',
       children: [
