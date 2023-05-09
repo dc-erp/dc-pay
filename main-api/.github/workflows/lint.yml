@@ -1,0 +1,23 @@
+name: Main-API Lint
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: main-api
+
+    - name: Lint code
+      run: npm run lint
+      working-directory: main-api

@@ -5,12 +5,12 @@ import userService from '../../settings/user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', employee = null, transaction = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const transactionParameterCalculations = await transactionParameterCalculationService.getAllFromOrganization(organizationId)
             const renamedTransactionParameterCalculations = transactionParameterCalculations.map(({
                 id,
@@ -71,7 +71,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const createdTransactionParameterCalculation = await transactionParameterCalculationService.create({ ...req.body.data })
             res.send(createdTransactionParameterCalculation)
@@ -83,7 +83,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await transactionParameterCalculationService.deleteTransactionParameterCalculation(String(id))
@@ -96,7 +96,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedTransactionParameterCalculation = await transactionParameterCalculationService.updateTransactionParameterCalculation(req.body.data)
             res.send(updatedTransactionParameterCalculation)

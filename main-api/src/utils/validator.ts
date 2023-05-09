@@ -1,12 +1,12 @@
 import { ValidationChain, validationResult } from 'express-validator'
-
+import {Request, Response, NextFunction} from 'express'
 /**
  * This code is from https://express-validator.github.io/docs/running-imperatively.html
  * We use it to run validations imperatively
  * @param validations
  */
 const validate = (validations: Array<any>) => {
-    return async (req, res, next) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
         await Promise.all(validations.map(validation => validation.run(req)))
 
         const errors = validationResult(req)

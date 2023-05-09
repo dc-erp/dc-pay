@@ -32,7 +32,7 @@ export const create = async ({ organizationId, menuTitle, menuLevelOneId, menuPa
     return res.rows[0].id
 }
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: menus } = await pool.query(`
     SELECT c.id, c.parent_id as menu_level_one_id, c.menu_title AS menu_title, c.menu_path, p.menu_title AS menu_level_one_title
     FROM menu_items c

@@ -7,7 +7,7 @@ const getAllFromOrganization = async (organizationId: any): Promise<any[]> => aw
 
 const deleteTaxRate = async (userId: string): Promise<any> => await taxRateDao.deleteTaxRate(userId)
 
-const updateTaxRate = async (menuLevelData): Promise<any> => await taxRateDao.updateTaxRate(menuLevelData)
+const updateTaxRate = async (menuLevelData: any): Promise<any> => await taxRateDao.updateTaxRate(menuLevelData)
 
 
 export default {

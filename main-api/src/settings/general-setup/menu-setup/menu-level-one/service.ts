@@ -1,7 +1,8 @@
+import { Request } from 'express'
 import menuLevelOneDao from './dao'
 import menuRightsService from '../../../rights-management/menu/service'
 
-const create = async (req: any, organizationId: string): Promise<string> => {
+const create = async (req: Request, organizationId: string): Promise<string> => {
     const newMenu = req.body.data
     newMenu.organizationId = organizationId
     newMenu.menuPath = `/apps/${newMenu.menuTitle.toLowerCase().replace(/ /g, '-')}`
@@ -24,7 +25,7 @@ const deleteMenuLevelOne = async (menuId: string): Promise<any> => {
 
 
 
-const updateMenuLevelOne = async (menuLevelData): Promise<any> => {
+const updateMenuLevelOne = async (menuLevelData: any): Promise<any> => {
     const updatedMenu = menuLevelData
     updatedMenu.menuPath = `${updatedMenu.menuTitle.toLowerCase().replace(/ /g, '-')}`
     return await menuLevelOneDao.updateMenuLevelOne(menuLevelData)

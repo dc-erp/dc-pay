@@ -1,5 +1,4 @@
 import pool from '../../config/pool'
-import { v4 as uuid } from 'uuid'
 
 const getAllFromOrganization = async(organizationId: string, employeeId: string) => {
     const { rows: employees } = await pool.query(`
@@ -57,7 +56,7 @@ const getAllFromOrganization = async(organizationId: string, employeeId: string)
         [employeeId])
 
 
-        const tranC = []
+        const tranC: any[] = []
         const allTransactions = [...payTransactions, ...loanTransactions]
 
 
@@ -100,15 +99,14 @@ const getAllFromOrganization = async(organizationId: string, employeeId: string)
                 allTransactions.push(...calculatedTrans)
             }  
 
-            const grossTaxable = calculateGrossTaxable(allTransactions)
-            const taxPay = await calculateTaxPay(grossTaxable)
-
-            const taxTransaction = {
-                id: '7ae1323b-6213-43e4-9a65-a5aa34a89aae',
-                transaction_name: 'Income Tax',
-                transaction_amount: taxPay,
-                transaction_type_name:  'Deduction Amount',
-            }
+            // const grossTaxable = calculateGrossTaxable(allTransactions)
+            // const taxPay = await calculateTaxPay(grossTaxable)
+            // const taxTransaction = {
+            //     id: '7ae1323b-6213-43e4-9a65-a5aa34a89aae',
+            //     transaction_name: 'Income Tax',
+            //     transaction_amount: taxPay,
+            //     transaction_type_name:  'Deduction Amount',
+            // }
 
         return [...allTransactions]
 
@@ -116,7 +114,7 @@ const getAllFromOrganization = async(organizationId: string, employeeId: string)
 
 
 const calculateTransactionCalculations = (transaction: any) => {
-    let transaction_amount
+    let transaction_amount: any = 0
     if(transaction.calculation_unit_name === 'Monthly')
         transaction_amount = parseFloat(transaction.second_transaction_value)
     if(transaction.calculation_unit_name === 'Hourly')
@@ -140,40 +138,40 @@ const calculateTransactionCalculations = (transaction: any) => {
 }
 
 
-const calculateTaxPay = async (grossTaxable: any) => {
-    const { rows: taxRates } = await pool.query(`
-    SELECT 
-    *
-    FROM tax_rate`,)  
+// const calculateTaxPay = async (grossTaxable: any) => {
+//     const { rows: taxRates } = await pool.query(`
+//     SELECT 
+//     *
+//     FROM tax_rate`,)  
 
-    let remainingAmount = grossTaxable;
-    let tax = 0;
+//     let remainingAmount = grossTaxable;
+//     let tax = 0;
   
-    for (const { highest_range: upper, lowest_range: lower, tax_rate: rate } of taxRates) {
-      const taxableAmount = Math.min(upper, remainingAmount) - lower;
+//     for (const { highest_range: upper, lowest_range: lower, tax_rate: rate } of taxRates) {
+//       const taxableAmount = Math.min(upper, remainingAmount) - lower;
   
-      if (taxableAmount <= 0) {
-        break;
-      }
+//       if (taxableAmount <= 0) {
+//         break;
+//       }
   
-      tax += taxableAmount * rate;
-      remainingAmount -= taxableAmount;
-    }
+//       tax += taxableAmount * rate;
+//       remainingAmount -= taxableAmount;
+//     }
 
-     return tax
+//      return tax
 
-}
+// }
 
-const calculateGrossTaxable = (transactions: any) => {
-    let grossTaxable = 0 
-    transactions.map((tran) => {
-        if(tran.transaction_type_name === 'Earning Amount')
-            grossTaxable += parseFloat(tran.transaction_amount)
-        if(tran.transaction_type_name === 'Deduction Amount')
-            grossTaxable -= parseFloat(tran.transaction_amount)
-    })
-    return grossTaxable
-}
+// const calculateGrossTaxable = (transactions: any) => {
+//     let grossTaxable = 0 
+//     transactions.map((tran) => {
+//         if(tran.transaction_type_name === 'Earning Amount')
+//             grossTaxable += parseFloat(tran.transaction_amount)
+//         if(tran.transaction_type_name === 'Deduction Amount')
+//             grossTaxable -= parseFloat(tran.transaction_amount)
+//     })
+//     return grossTaxable
+// }
 
 
 export default {

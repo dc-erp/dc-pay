@@ -1,8 +1,9 @@
+import {Request } from 'express'
 import employeeDao from './dao'
 import payTransactionService from '../../tasks/pay-transaction/service'
 import transctionDefinitionService from '../transaction-definition/service'
 
-const create = async (req: any, organizationId: string): Promise<string> => {
+const create = async (req: Request, organizationId: string): Promise<string> => {
     const newEmployee = req.body.data
     newEmployee.organizationId = organizationId
     const newEmployeeId = await employeeDao.create({ ...newEmployee })
@@ -15,7 +16,7 @@ const getAllFromOrganization = async (organizationId: any): Promise<any[]> => aw
 
 const deleteEmployee = async (userId: string): Promise<any> => await employeeDao.deleteEmployee(userId)
 
-const updateEmployee = async (employeeData): Promise<any> => await employeeDao.updateEmployee(employeeData)
+const updateEmployee = async (employeeData: any): Promise<any> => await employeeDao.updateEmployee(employeeData)
 
 export default {
     create,

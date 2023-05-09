@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  dashboard:
+    build: ./dashboard
+    ports:
+      - '3000:3000'
+
+  app:
+    build: ./app
+    ports:
+      - '4000:4000'
+
+networks:
+  dc-pay-network:
+    driver: bridge

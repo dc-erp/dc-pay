@@ -38,7 +38,7 @@ export const create = async (newHoliday: any): Promise<string> => {
     return res.rows[0].id
 }
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: holidays } = await pool.query(`
     SELECT 
     holiday.id, 

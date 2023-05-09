@@ -30,7 +30,7 @@ export const create = async (newMenu: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: payTransactions } = await pool.query(`
     SELECT 
     lt.id,
@@ -66,7 +66,7 @@ const getPayrollSheet = async(organizationId: string) => {
     WHERE e1.organization_id=$1`,
         [organizationId])
 
-    const employeeTransactions = await Promise.all(employees.map(async (employee) => {
+    const employeeTransactions = await Promise.all(employees.map(async (employee: any) => {
     
 
     const { rows: payTransactions } = await pool.query(`
@@ -112,7 +112,7 @@ const getPayrollSheet = async(organizationId: string) => {
         [employee.id])
 
 
-        const tranC = []
+        const tranC: any[] = []
         const allTransactions = [...payTransactions, ...loanTransactions]
 
         await Promise.all([...memberships, ...payTransactions].map(async (payTransaction) => {
@@ -169,7 +169,7 @@ const getPayrollSheet = async(organizationId: string) => {
 
 
 const calculateTransactionCalculations = (transaction: any) => {
-    let transaction_amount
+    let transaction_amount: any
     if(transaction.calculation_unit_name === 'Monthly')
         transaction_amount = parseFloat(transaction.second_transaction_value)
     if(transaction.calculation_unit_name === 'Hourly')
@@ -193,7 +193,7 @@ const calculateTransactionCalculations = (transaction: any) => {
 
 const calculateNetPay = (transactions: any) => {
     let netPay = 0 
-    transactions.map((tran) => {
+    transactions.map((tran: any) => {
         if(tran.transaction_type_name === 'Earning Amount')
             netPay += parseFloat(tran.transaction_amount)
         if(tran.transaction_type_name === 'Deduction Amount')

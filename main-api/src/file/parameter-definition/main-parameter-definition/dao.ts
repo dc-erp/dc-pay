@@ -30,7 +30,7 @@ export const create = async (newMainParameterDefinition: any): Promise<any> => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: mainParameterDefinitions } = await pool.query(`
     SELECT 
     id, 

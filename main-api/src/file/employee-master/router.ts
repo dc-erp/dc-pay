@@ -5,12 +5,12 @@ import userService from '../../settings/user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '',} = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const employees = await employeeService.getAllFromOrganization(organizationId)
             const renamedEmployees = employees.map(({ id, branch_id, department_id, employee_code, first_name, last_name, sex, employee_status, employee_type, contract_start_date, contract_end_date, monthly_working_hours, pension_number, tin_number, working_days, employee_position, basic_salary, employment_date }) => ({
                 id,
@@ -54,7 +54,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
@@ -69,7 +69,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await employeeService.deleteEmployee(String(id))
@@ -82,7 +82,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedEmployee = await employeeService.updateEmployee(req.body.data)
             res.send(updatedEmployee)

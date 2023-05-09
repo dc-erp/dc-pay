@@ -36,7 +36,7 @@ const getAllFromOrganizations = async (organizationId: any): Promise<any> => {
     return await rolesDao.getAllFromOrganization(organizationId)
 }
 
-const updateRole = async (roleData): Promise<any> => await rolesDao.updateRole(roleData)
+const updateRole = async (roleData: any): Promise<any> => await rolesDao.updateRole(roleData)
 
 
 export default {

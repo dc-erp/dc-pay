@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  dashboard:
+    build: ./dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - main-api
+  main-api:
+    build: ./main-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - redis
+      - postgres
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  postgres:
+    build: ./postgres
+    environment:
+      - POSTGRES_USER=dpadmin
+      - POSTGRES_PASSWORD=dppassword
+      - POSTGRES_DB=dpdb
+    ports:
+      - "5432:5432"

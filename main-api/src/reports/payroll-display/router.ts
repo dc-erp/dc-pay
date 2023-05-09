@@ -6,13 +6,13 @@ const router = Router()
 
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', employee = null, transaction = null } = req.query ?? ''
+            const { q = '', employee = null, } = req.query ?? ''
             const employeeId = employee
-            const queryLowered = q.toLowerCase()
+            const queryLowered = q.toString().toLowerCase()
             const payrollSheets = await payrollSheetService.getAllFromOrganization(organizationId, employeeId)
             const renamedPayTransactions = payrollSheets.map(({
                id,
@@ -20,7 +20,7 @@ router.get('/',
                 transaction_amount,
               transaction_type_name,
               update_type_name,
-            }) => ({
+            }: any) => ({
                 id,
                 transactionName: transaction_name,
                 transactionAmount: transaction_amount,
@@ -28,7 +28,7 @@ router.get('/',
                 updateTypeName: update_type_name
             }));
             const filteredData = renamedPayTransactions.filter(
-                payrollSheet =>
+                (payrollSheet: any) =>
                 (
                     payrollSheet.transactionName.toLowerCase().includes(queryLowered) ||
                     payrollSheet.transactionAmount.toLowerCase().includes(queryLowered) ||

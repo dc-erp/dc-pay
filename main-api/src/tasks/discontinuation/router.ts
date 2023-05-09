@@ -1,16 +1,16 @@
-import { Response, NextFunction, Router } from 'express'
+import { Request, Response, NextFunction, Router } from 'express'
 import discontinuationService from './service'
 import userService from '../../settings/user-management/users/service'
 
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', employee = null, transaction = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '',} = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const discontinuations = await discontinuationService.getAllFromOrganization(organizationId)
             const renamedDiscontinuations = discontinuations.map(({
                 id,
@@ -56,7 +56,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const createdDiscontinuation = await discontinuationService.create({ ...req.body.data })
             res.send(createdDiscontinuation)
@@ -68,7 +68,7 @@ router.post('/',
     })
 
 router.delete('/:id',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await discontinuationService.deleteDiscontinuation(String(id))
@@ -81,7 +81,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedDiscontinuation = await discontinuationService.updateDiscontinuation(req.body.data)
             res.send(updatedDiscontinuation)

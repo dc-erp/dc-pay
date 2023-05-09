@@ -7,7 +7,7 @@ const getAllFromOrganization = async (organizationId: any): Promise<any[]> => aw
 
 const deleteMembership = async (userId: string): Promise<any> => await membershipDao.deleteMembership(userId)
 
-const updateMembership = async (menuLevelData): Promise<any> => await membershipDao.updateMembership(menuLevelData)
+const updateMembership = async (menuLevelData: any): Promise<any> => await membershipDao.updateMembership(menuLevelData)
 
 
 export default {

@@ -32,7 +32,7 @@ export const create = async ({ organizationId, menuTitle, menuPath }: any): Prom
     return res.rows[0].id
 }
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows: menus } = await pool.query(`
     SELECT 
     id, 

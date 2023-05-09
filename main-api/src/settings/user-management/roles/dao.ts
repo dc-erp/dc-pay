@@ -45,7 +45,7 @@ export const getInfoByName = async (roleName: string) => {
 }
 
 
-export const getAllFromOrganization = async (organizationId: string) => {
+export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
     const { rows } = await pool.query(`
     SELECT * FROM user_roles WHERE organization_id=$1
     `  , [organizationId])

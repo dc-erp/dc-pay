@@ -7,7 +7,7 @@ const getAllFromOrganization = async (organizationId: any): Promise<any[]> => aw
 
 const deletePayTransaction = async (userId: string): Promise<any> => await payTransactionDao.deletePayTransaction(userId)
 
-const updatePayTransaction = async (menuLevelData): Promise<any> => await payTransactionDao.updatePayTransaction(menuLevelData)
+const updatePayTransaction = async (menuLevelData: any): Promise<any> => await payTransactionDao.updatePayTransaction(menuLevelData)
 
 
 export default {

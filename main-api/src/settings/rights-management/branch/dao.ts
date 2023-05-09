@@ -34,7 +34,7 @@ export const create = async ({
 
 
 export const getAllFromOrganization = async (userAuthInfo: any, roleId: any) => {
-    const { organization_id: organizationId, branch_id: branchId } = userAuthInfo
+    const { organization_id: organizationId} = userAuthInfo
     const { rows: menuRights } = await pool.query(`
     SELECT 
     rb.id, 
@@ -70,14 +70,14 @@ export const deleteBranchRight = async (menuLevelTwoId: string): Promise<any> =>
 }
 
 export const populateForRole = async (branchId: any, roles: any): Promise<any> => {
-    roles.map(async ({ id: roleId }) => {
+    roles.map(async ({ id: roleId }: any) => {
         await create({ branchId, roleId, allowed: true })
     })
     return true
 }
 
 export const populateForBranch = async (roleId: any, branches: any): Promise<any> => {
-    branches.map(async ({ id: branchId }) => {
+    branches.map(async ({ id: branchId }: any) => {
         await create({ roleId, branchId, allowed: true })
     })
     return true

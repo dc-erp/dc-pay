@@ -6,7 +6,7 @@ import parameterDefinitionService from '../parameter-definition/service'
 const router = Router()
 
 router.get('/parameter',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
@@ -36,12 +36,12 @@ router.get('/parameter',
 
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId } = await userService.getUserAuthorizationInfo(userId)
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '' } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const employees = await transactionDefinitionService.getAllFromOrganization(organizationId)
             const renamedTransactionDefinition = employees.map(({
                 id,
@@ -106,7 +106,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const { organization_id: organizationId, branch_id: branchId } = await userService.getUserAuthorizationInfo(userId)
@@ -121,7 +121,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await transactionDefinitionService.deleteTransactionDefinition(String(id))
@@ -134,7 +134,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedTransactionDefinition = await transactionDefinitionService.updateTransactionDefinition(req.body.data)
             res.send(updatedTransactionDefinition)

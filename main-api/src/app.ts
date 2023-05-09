@@ -11,12 +11,15 @@ import { authorizeUser } from './config/session'
 
 dotenv.config()
 const app = express()
+
+const corsOptionTyped: any = corsOptions
+
 app.set('port', process.env.PORT || 4000)
 app.use(compression())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors(corsOptions))
+app.use(cors(corsOptionTyped))
 
 
 

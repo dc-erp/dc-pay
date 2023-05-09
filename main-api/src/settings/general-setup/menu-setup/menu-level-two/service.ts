@@ -1,3 +1,4 @@
+import { Request } from 'express'
 import menuLevelTwoDao from './dao'
 import menuLevelOneService from '../menu-level-one/service'
 import menuRightsService from '../../../rights-management/menu/service'
@@ -5,7 +6,7 @@ import menuRightsService from '../../../rights-management/menu/service'
 // Make Branches Populate Right
 // Make Rights Populate Branch
 
-const create = async (req: any, organizationId: string): Promise<string> => {
+const create = async (req: Request, organizationId: string): Promise<string> => {
     const newMenu = req.body.data
     newMenu.organizationId = organizationId
     const { menu_path: parentPath } = await menuLevelOneService.getInfo(newMenu.menuLevelOneId)
@@ -25,7 +26,7 @@ const deleteMenuLevelTwo = async (menuId: string): Promise<any> => {
 
 
 
-const updateMenuLevelTwo = async (menuLevelData): Promise<any> => {
+const updateMenuLevelTwo = async (menuLevelData: any): Promise<any> => {
     const updatedMenu = menuLevelData
     const { menu_path: parentPath } = await menuLevelOneService.getInfo(menuLevelData.menuLevelOneId)
     updatedMenu.menuPath = `${parentPath}/${updatedMenu.menuTitle.toLowerCase().replace(/ /g, '-')}`

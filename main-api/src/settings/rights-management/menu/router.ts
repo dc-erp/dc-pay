@@ -7,13 +7,13 @@ import userService from '../../user-management/users/service'
 const router = Router()
 
 router.get('/',
-    async (req: any, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const userId = req.headers['x-user-id'];
             const userAuthInfo = await userService.getUserAuthorizationInfo(userId)
             const roleId = req.query.role
-            const { q = '', role = null, status = null } = req.query ?? ''
-            const queryLowered = q.toLowerCase()
+            const { q = '', } = req.query ?? ''
+            const queryLowered = q.toString().toLowerCase()
             const menuLevelOnes = await menuRightsService.getAllFromOrganization(userAuthInfo, roleId)
             const renamedMenuLevelOnes = menuLevelOnes.map(({ id, role_id, role_name, menu_title, menu_id, edit_allowed, read_allowed }) => ({
                 id,
@@ -43,7 +43,7 @@ router.get('/',
     })
 
 router.post('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const organizationId = req.headers['x-organization-id'];
             const createdMainParameterDefinition = await menuRightsService.create(req, String(organizationId))
@@ -57,7 +57,7 @@ router.post('/',
 
 router.delete('/:id',
     // usersValidations.newUser,
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { id } = req.params
             await menuRightsService.deleteMenuLevelOne(String(id))
@@ -70,7 +70,7 @@ router.delete('/:id',
     })
 
 router.put('/',
-    async (req, res, next) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updatedMenuRight = await menuRightsService.updateMenuRight(req.body.data)
             res.send(updatedMenuRight)

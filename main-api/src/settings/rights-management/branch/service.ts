@@ -1,8 +1,9 @@
+import {Request } from 'express'
 import branchRightsDao from './dao'
 import roleService from '../../user-management/roles/service'
 import branchService from '../../../file/entity-management/branch/service'
 
-const create = async (req: any, organizationId: string): Promise<string> => {
+const create = async (req: Request, organizationId: string): Promise<string> => {
     const newMenu = req.body.data
     newMenu.organizationId = organizationId
     newMenu.menuPath = newMenu.menuTitle.toLowerCase().replace(/ /g, '-')
@@ -24,7 +25,7 @@ const deleteBranchRight = async (userId: string): Promise<any> => await branchRi
 
 
 
-const updateBranchRight = async (branchRightData): Promise<any> => {
+const updateBranchRight = async (branchRightData: any): Promise<any> => {
     const updatedBranchRight = branchRightData
     return await branchRightsDao.updateBranchRight(updatedBranchRight)
 }
