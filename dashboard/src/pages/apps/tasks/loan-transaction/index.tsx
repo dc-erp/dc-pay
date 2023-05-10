@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, useCallback, } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -42,7 +42,6 @@ import { fetchTransactionDefinitionByGroup } from 'src/store/apps/File/Transacti
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { LoanTransactionsType } from 'src/types/apps/Tasks/loanTransactionTypes'
 
 // ** Custom Components Imports
@@ -355,9 +354,9 @@ return (
                                         inputProps={{ placeholder: 'Select Employee' }}
                                     >
                                         {
-                                            employeeStore.data.map(({ id, firstName, lastName }) => {
+                                            employeeStore.data.map(({ id, firstName, lastName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${firstName} ${lastName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${firstName} ${lastName}`}</MenuItem>
                                                 )
                                             })
                                         }
@@ -378,9 +377,9 @@ return (
                                         inputProps={{ placeholder: 'Select Role' }}
                                     >
                                         {
-                                            transactionDefinitionStore.data.map(({ id, transactionName }) => {
+                                            transactionDefinitionStore.data.map(({ id, transactionName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                 )
                                             })
                                         }

@@ -11,7 +11,6 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 
 import InputLabel from '@mui/material/InputLabel'
-import FormHelperText from '@mui/material/FormHelperText'
 
 
 import MenuItem from '@mui/material/MenuItem'
@@ -56,7 +55,6 @@ const emptyValues = {
 
 
 const AddDepartment = ({ formData }: any) => {
-    const user = useSelector((state: any) => state.user)
 
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
@@ -70,15 +68,12 @@ const AddDepartment = ({ formData }: any) => {
                 q: ''
             })
         )
-    }, [dispatch, ''])
+    }, [dispatch])
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+ 
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -87,6 +82,10 @@ const AddDepartment = ({ formData }: any) => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     const onSubmit = (data: any) => {
         if (data.id) {
@@ -120,9 +119,9 @@ const AddDepartment = ({ formData }: any) => {
                                         onChange={onChange}
                                     >
                                         {
-                                            branchStore.data.map(({ id, branchName }: any) => {
+                                            branchStore.data.map(({ id, branchName }: any, index: any) => {
                                                 return (
-                                                    <MenuItem value={id}>{branchName}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{branchName}</MenuItem>
                                                 )
                                             })
                                         }
@@ -149,7 +148,6 @@ const AddDepartment = ({ formData }: any) => {
                                 />
                             )}
                         />
-                        {errors.departmentCode && <FormHelperText sx={{ color: 'error.main' }}>{errors.departmentCode.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth sx={{ mb: 4 }}>
                         <Controller
@@ -168,7 +166,6 @@ const AddDepartment = ({ formData }: any) => {
                                 />
                             )}
                         />
-                        {errors.departmentName && <FormHelperText sx={{ color: 'error.main' }}>{errors.departmentName.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth sx={{ mb: 4 }}>
                         <Controller
@@ -187,7 +184,6 @@ const AddDepartment = ({ formData }: any) => {
                                 />
                             )}
                         />
-                        {errors.permanentAccount && <FormHelperText sx={{ color: 'error.main' }}>{errors.permanentAccount.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth sx={{ mb: 4 }}>
                         <Controller
@@ -206,7 +202,6 @@ const AddDepartment = ({ formData }: any) => {
                                 />
                             )}
                         />
-                        {errors.contractAccount && <FormHelperText sx={{ color: 'error.main' }}>{errors.contractAccount.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth>
                         <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>

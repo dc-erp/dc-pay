@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState, SyntheticEvent, useEffect } from 'react'
+import {  useEffect } from 'react'
 
 
 // ** MUI Imports
@@ -8,23 +8,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
-
-import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import FormHelperText from '@mui/material/FormHelperText'
-
-
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-
-
-import { Locale } from 'date-fns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
 
 
 // ** Icons Imports
@@ -45,8 +29,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 
 
-// Unorganized Imports
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
+
 
 // ** Store Imports
 import { useDispatch } from 'react-redux'
@@ -58,7 +41,6 @@ import { fetchData as fetchRights } from 'src/store/apps/Settings/RightsManageme
 // ** Types Imports
 import { AppDispatch } from 'src/store'
 
-import { useSelector } from 'react-redux'
 
 
 
@@ -74,11 +56,7 @@ const emptyValues = {
 
 
 const AddBranch = ({ formData }: any) => {
-    const user = useSelector((state: any) => state.user)
-
-    // ** State
-    const [plan, setPlan] = useState<string>('basic')
-    const [role, setRole] = useState<string>('subscriber')
+ 
 
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
@@ -90,15 +68,12 @@ const AddBranch = ({ formData }: any) => {
                 q: ''
             })
         )
-    }, [dispatch, ''])
+    }, [dispatch])
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+   
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -107,6 +82,10 @@ const AddBranch = ({ formData }: any) => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     const onSubmit = (data: any) => {
         if (data.id) {

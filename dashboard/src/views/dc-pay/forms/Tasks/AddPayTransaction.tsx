@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState, SyntheticEvent, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 
 // ** MUI Imports
@@ -11,20 +11,11 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 
 import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
 
 
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-
-
-import { Locale } from 'date-fns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-
 
 // ** Third Party Imports
 import * as yup from 'yup'
@@ -74,7 +65,7 @@ const AddMenuLevelTwo = ({
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
 
-    const [menuLevelOne, setMainParameterDefinition] = useState<string>('')
+    const [, setMainParameterDefinition] = useState<string>('')
 
     useEffect(() => {
         dispatch(
@@ -93,15 +84,12 @@ const AddMenuLevelTwo = ({
         )
     }, [dispatch])
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+
 
 
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -110,6 +98,10 @@ const AddMenuLevelTwo = ({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     // any type used
     const onSubmit = (data: any) => {
@@ -150,9 +142,9 @@ const AddMenuLevelTwo = ({
                                         onChange={onChange}
                                     >
                                         {
-                                            employeeStore.data.map(({ id, firstName, lastName }) => {
+                                            employeeStore.data.map(({ id, firstName, lastName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${firstName} ${lastName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${firstName} ${lastName}`}</MenuItem>
                                                 )
                                             })
                                         }
@@ -180,9 +172,9 @@ const AddMenuLevelTwo = ({
                                         onChange={onChange}
                                     >
                                         {
-                                            transactionDefinitionStore.data.map(({ id, transactionName }) => {
+                                            transactionDefinitionStore.data.map(({ id, transactionName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                 )
                                             })
                                         }

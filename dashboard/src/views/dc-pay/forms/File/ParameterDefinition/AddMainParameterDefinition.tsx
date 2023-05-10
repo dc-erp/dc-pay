@@ -9,7 +9,6 @@ import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
 
 // ** Third Party Imports
 import * as yup from 'yup'
@@ -43,13 +42,9 @@ const AddMenuLevelOne = ({ formData }: any) => {
     const dispatch = useDispatch<AppDispatch>()
 
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -58,6 +53,11 @@ const AddMenuLevelOne = ({ formData }: any) => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     const onSubmit = (data: any) => {
         if (data.id) {
@@ -91,7 +91,6 @@ const AddMenuLevelOne = ({ formData }: any) => {
                                 />
                             )}
                         />
-                        {errors.parameterName && <FormHelperText sx={{ color: 'error.main' }}>{errors.parameterName.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth>
                         <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>

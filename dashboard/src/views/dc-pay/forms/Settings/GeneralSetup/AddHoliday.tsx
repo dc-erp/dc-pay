@@ -1,6 +1,5 @@
 // ** React Imports
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 
 
 // ** MUI Imports
@@ -10,7 +9,6 @@ import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
 
 
 // ** Third Party Imports
@@ -47,14 +45,9 @@ const emptyValues = {
 
 
 const AddMenuLevelOne = ({ formData }: any) => {
-    const user = useSelector((state: any) => state.user)
 
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
-
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
 
     const {
         control,
@@ -66,6 +59,12 @@ const AddMenuLevelOne = ({ formData }: any) => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
+
 
     const onSubmit = (data: any) => {
         if (data.id) {

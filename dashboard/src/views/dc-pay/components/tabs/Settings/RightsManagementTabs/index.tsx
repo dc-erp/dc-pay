@@ -1,7 +1,6 @@
 // ** React Imports
-import { MouseEvent, SyntheticEvent, useCallback, useState } from 'react'
+import { MouseEvent, SyntheticEvent, useState } from 'react'
 
-import { useSelector } from 'react-redux'
 
 // ** MUI Imports
 import Tab from '@mui/material/Tab'
@@ -13,39 +12,15 @@ import MenuRightsTable from 'src/views/dc-pay/tables/Settings/RightsManagement/M
 import BranchRightsTable from 'src/views/dc-pay/tables/Settings/RightsManagement/BranchRightsTable'
 
 
-import { RootState } from 'src/store'
 
 
 const TabsNav = () => {
     // ** State
-
-    const [pageSize, setPageSize] = useState<number>(10)
-
-
-    const [branchFormData, setBranchFormData] = useState({
-        branch_code: '',
-        branch_name: ''
-    });
-
-    const [departmentFormData, setDepartmentFormData] = useState({
-        branch_id: '',
-        department_code: '',
-        department_name: ''
-    });
-
-
-    const handleFilter = useCallback((val: string) => {
-        setValue(val)
-    }, [])
-
     const [value, setValue] = useState<string>('1')
 
     const handleChange = (event: SyntheticEvent, newValue: string) => {
         setValue(newValue)
     }
-
-    const store = useSelector((state: RootState) => state.menuLevelOne)
-
 
     return (
         <TabContext value={value}>

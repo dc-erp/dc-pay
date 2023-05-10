@@ -2,23 +2,9 @@
 import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-// ** Axios Imports
-import axios from 'axios'
-
 // ** Utils Imports
 import apiRequest from 'src/utils/apiRequest'
 
-
-// ** Config
-import authConfig from 'src/configs/auth'
-
-
-interface DataParams {
-  q: string
-  role: string
-  status: string
-  currentPlan: string
-}
 
 interface Redux {
   getState: any

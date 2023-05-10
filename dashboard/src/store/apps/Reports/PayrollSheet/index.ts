@@ -1,5 +1,4 @@
 // ** Redux Imports
-import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 
@@ -7,10 +6,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import apiRequest from 'src/utils/apiRequest'
 
 
-interface Redux {
-  getState: any
-  dispatch: Dispatch<any>
-}
 
 // ** Fetch Branches
 export const fetchData = createAsyncThunk('appPayrollSheets/fetchData', async (params: any) => {

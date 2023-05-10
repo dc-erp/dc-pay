@@ -129,13 +129,10 @@ const AddMenuLevelTwo = ({
 
 
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+ 
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -144,6 +141,10 @@ const AddMenuLevelTwo = ({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     // any type used
 
@@ -215,13 +216,13 @@ return filteredChild
                                     name='employmentDate'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
                                                 label='Employment Date'
                                                 value={value}
                                                 onChange={onChange}
-                                                renderInput={params => <TextField {...params} />}
+                                                renderInput={(params: any) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                     )}
@@ -235,13 +236,13 @@ return filteredChild
                                     name='contractStartDate'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
                                                 label='Contract Start Date'
                                                 value={value}
                                                 onChange={onChange}
-                                                renderInput={params => <TextField {...params} />}
+                                                renderInput={(params: any) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                     )}
@@ -255,13 +256,13 @@ return filteredChild
                                     name='contractEndDate'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                                             <DatePicker
                                                 label='Contract End Date'
                                                 value={value}
                                                 onChange={onChange}
-                                                renderInput={params => <TextField {...params} />}
+                                                renderInput={(params: any) => <TextField {...params} />}
                                             />
                                         </LocalizationProvider>
                                     )}
@@ -330,9 +331,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    sexOptions.map(({ id, parameterName }) => {
+                                                    sexOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -361,9 +362,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    employeeStatusOptions.map(({ id, parameterName }) => {
+                                                    employeeStatusOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -392,9 +393,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    employeeTypeOptions.map(({ id, parameterName }) => {
+                                                    employeeTypeOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -527,9 +528,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    bankOptions.map(({ id, parameterName }) => {
+                                                    bankOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -578,9 +579,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    branchOptions.data.map(({ id, branchName }) => {
+                                                    branchOptions.data.map(({ id, branchName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{branchName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{branchName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -608,9 +609,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    departmentOptions.data.map(({ id, departmentName }) => {
+                                                    departmentOptions.data.map(({ id, departmentName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{departmentName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{departmentName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -638,9 +639,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    employeePositionOptions.map(({ id, parameterName }) => {
+                                                    employeePositionOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }

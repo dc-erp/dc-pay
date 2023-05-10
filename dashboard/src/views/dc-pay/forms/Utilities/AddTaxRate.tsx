@@ -64,9 +64,6 @@ const AddMenuLevelTwo = ({
     const [, setMainParameterDefinition] = useState<string>('')
 
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
 
 
 
@@ -80,6 +77,11 @@ const AddMenuLevelTwo = ({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
+
 
     // any type used
     const onSubmit = (data: any) => {

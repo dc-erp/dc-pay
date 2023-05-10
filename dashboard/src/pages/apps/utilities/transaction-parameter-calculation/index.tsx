@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -14,22 +14,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
-
-// ** Icons Imports
-// import Laptop from 'mdi-material-ui/Laptop'
-// import ChartDonut from 'mdi-material-ui/ChartDonut'
-// import CogOutline from 'mdi-material-ui/CogOutline'
-// import EyeOutline from 'mdi-material-ui/EyeOutline'
-// import DotsVertical from 'mdi-material-ui/DotsVertical'
-// import PencilOutline from 'mdi-material-ui/PencilOutline'
-// import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-// import AccountOutline from 'mdi-material-ui/AccountOutline'
-
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
@@ -40,7 +25,6 @@ import { fetchData, deleteTransactionParameterCalculation } from 'src/store/apps
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { TransactionParameterCalculationType } from 'src/types/apps/Utilities/transactionParameterCalculationTypes'
 
 
@@ -71,9 +55,9 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [role, setRole] = useState<string>('')
+    const [role] = useState<string>('')
     const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [status] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
@@ -93,9 +77,6 @@ const UserList = () => {
         firstTransaction,
         secondTransaction,
         thirdTransaction,
-        firstTransactionName,
-        secondTransactionName,
-        thirdTransactionName,
         calculationUnit,
         firstOption,
         secondOption,

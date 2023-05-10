@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState, SyntheticEvent, useEffect } from 'react'
+import {  useState, useEffect } from 'react'
 
 
 // ** MUI Imports
@@ -11,31 +11,11 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 
 import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import FormHelperText from '@mui/material/FormHelperText'
+
 
 
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-
-
-import { Locale } from 'date-fns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-
-
-// ** Icons Imports
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
-
-
-// ** Icons Imports
-import Phone from 'mdi-material-ui/Phone'
-import EmailOutline from 'mdi-material-ui/EmailOutline'
-import AccountOutline from 'mdi-material-ui/AccountOutline'
-import MessageOutline from 'mdi-material-ui/MessageOutline'
 
 // ** Third Party Imports
 import * as yup from 'yup'
@@ -82,7 +62,7 @@ const AddMenuLevelTwo = ({
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
 
-    const [mainParameterDefinition, setMainParameterDefinition] = useState<string>('')
+    const [, setMainParameterDefinition] = useState<string>('')
 
     useEffect(() => {
         dispatch(
@@ -92,16 +72,8 @@ const AddMenuLevelTwo = ({
         )
     }, [dispatch])
 
-
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
-
-
-
-    const {
+  const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -110,6 +82,10 @@ const AddMenuLevelTwo = ({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     // any type used
     const onSubmit = (data: any) => {
@@ -147,9 +123,9 @@ const AddMenuLevelTwo = ({
                                         onChange={onChange}
                                     >
                                         {
-                                            mainParameterDefinitions.data.map(({ id, parameterName }) => {
+                                            mainParameterDefinitions.data.map(({ id, parameterName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{parameterName}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                 )
                                             })
                                         }
@@ -176,7 +152,6 @@ const AddMenuLevelTwo = ({
                                 />
                             )}
                         />
-                        {errors.parameterName && <FormHelperText sx={{ color: 'error.main' }}>{errors.parameterName.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth>
                         <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
