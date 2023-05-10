@@ -57,9 +57,9 @@ interface CellType {
 
 const UserList = () => {
     // ** State
-    const [role, setRole] = useState<string>('')
+    const [role] = useState<string>('')
     const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [status] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 

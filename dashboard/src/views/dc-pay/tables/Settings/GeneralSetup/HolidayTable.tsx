@@ -66,7 +66,7 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [value, setValue] = useState<string>('')
+    const [value,] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
 
     const [formData, setFormData] = useState({

@@ -33,7 +33,6 @@ import { fetchData, deleteMainParameterDefinition } from 'src/store/apps/File/Pa
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { MainParameterDefinitionType } from 'src/types/apps/File/ParameterDefinition/mainParameterDefinitionTypes'
 
 // ** Custom Components Imports
@@ -71,7 +70,7 @@ const UserList = () => {
     });
 
 
-    const RowOptions = ({ id, parameterName, branchName }: any) => {
+    const RowOptions = ({ id, parameterName }: any) => {
         // ** Hooks
         const dispatch = useDispatch<AppDispatch>()
 

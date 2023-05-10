@@ -7,13 +7,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import apiRequest from 'src/utils/apiRequest'
 
 
-interface DataParams {
-  q: string
-  role: string
-  status: string
-  currentPlan: string
-}
-
 interface Redux {
   getState: any
   dispatch: Dispatch<any>

@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
+import {  useEffect } from 'react'
 
 
 // ** MUI Imports
@@ -9,7 +9,6 @@ import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
-import FormHelperText from '@mui/material/FormHelperText'
 
 
 // ** Third Party Imports
@@ -26,15 +25,8 @@ import { addMenuLevelOne, editMenuLevelOne } from 'src/store/apps/Settings/Gener
 import { fetchData as fetchRights } from 'src/store/apps/Settings/RightsManagement/Menu'
 
 // ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
+import { AppDispatch } from 'src/store'
 
-import { useSelector } from 'react-redux'
-
-
-interface State {
-    password: string
-    showPassword: boolean
-}
 
 const schema = yup.object().shape({
     menuTitle: yup.string(),
@@ -45,21 +37,11 @@ const emptyValues = {
 }
 
 
-interface MenuLevelOneData {
-    menuTitle: string;
-}
 
 const AddMenuLevelOne = ({ formData }: any) => {
-    const user = useSelector((state: any) => state.user)
-
-    // ** State
-    const [plan, setPlan] = useState<string>('basic')
-    const [role, setRole] = useState<string>('subscriber')
 
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
-
-    const store = useSelector((state: RootState) => state.menuRight)
 
     useEffect(() => {
         dispatch(
@@ -67,15 +49,10 @@ const AddMenuLevelOne = ({ formData }: any) => {
                 q: ''
             })
         )
-    }, [dispatch, ''])
-
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+    }, [dispatch])
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -84,6 +61,12 @@ const AddMenuLevelOne = ({ formData }: any) => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
+
 
     const onSubmit = (data: any) => {
         if (data.id) {

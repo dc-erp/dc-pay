@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -15,58 +15,30 @@ import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icons Imports
-import Laptop from 'mdi-material-ui/Laptop'
-import ChartDonut from 'mdi-material-ui/ChartDonut'
-import CogOutline from 'mdi-material-ui/CogOutline'
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import DotsVertical from 'mdi-material-ui/DotsVertical'
-import PencilOutline from 'mdi-material-ui/PencilOutline'
-import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-import AccountOutline from 'mdi-material-ui/AccountOutline'
 
 
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
 import { fetchData, deleteTaxRate } from 'src/store/apps/Utilities/TaxRate'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import AddUserDrawer from 'src/views/apps/user/list/AddUserDrawer'
 
 
-import AddTaxRate from 'src/views/dcpayroll/forms/Utilities/AddTaxRate'
+// import AddTaxRate from 'src/views/dc-pay/forms/Utilities/AddTaxRate'
 import { TaxRateType } from 'src/types/apps/Utilities/taxRateTypes'
 
 
 
 
 // ** Vars
-const userRoleObj: UserRoleType = {
-    admin: <Laptop fontSize='small' sx={{ mr: 3, color: 'error.main' }} />,
-    author: <CogOutline fontSize='small' sx={{ mr: 3, color: 'warning.main' }} />,
-    editor: <PencilOutline fontSize='small' sx={{ mr: 3, color: 'info.main' }} />,
-    maintainer: <ChartDonut fontSize='small' sx={{ mr: 3, color: 'success.main' }} />,
-    subscriber: <AccountOutline fontSize='small' sx={{ mr: 3, color: 'primary.main' }} />
-}
+
 
 interface CellType {
     row: TaxRateType
@@ -85,11 +57,10 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [employee, setEmployee] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [transaction, setTransaction] = useState<string>('')
+    const [employee,] = useState<string>('')
+    const [value,] = useState<string>('')
+    const [transaction,] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
-    const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
     const [formData, setFormData] = useState({
         id: '',
@@ -149,7 +120,7 @@ const UserList = () => {
         return (
             <>
                 <IconButton size='small' onClick={handleRowOptionsClick}>
-                    <DotsVertical />
+                    Options
                 </IconButton>
                 <Menu
                     keepMounted
@@ -169,17 +140,14 @@ const UserList = () => {
                     <MenuItem sx={{ p: 0 }}>
                         <Link href={`/apps/settings/user-management/view/${id}`} passHref>
                             <MenuItemLink>
-                                <EyeOutline fontSize='small' sx={{ mr: 2 }} />
                                 View
                             </MenuItemLink>
                         </Link>
                     </MenuItem>
                     <MenuItem onClick={handleEdit}>
-                        <PencilOutline fontSize='small' sx={{ mr: 2 }} />
                         Edit
                     </MenuItem>
                     <MenuItem onClick={handleDelete}>
-                        <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
                         Delete
                     </MenuItem>
                 </Menu>
@@ -278,23 +246,11 @@ const UserList = () => {
         )
     }, [dispatch, employee, transaction, value])
 
-    const handleFilter = useCallback((val: string) => {
-        setValue(val)
-    }, [])
-
-    const handleEmployee = useCallback((e: SelectChangeEvent) => {
-        setEmployee(e.target.value)
-    }, [])
-
-    const handleTransactionDefinitionChange = useCallback((e: SelectChangeEvent) => {
-        setTransaction(e.target.value)
-    }, [])
-
 
     return (
         <Grid container spacing={6}>
             <Grid item xs={4}>
-                <AddTaxRate formData={formData} />
+                {/* <AddTaxRate formData={formData} /> */}
             </Grid>
             <Grid item xs={8}>
                 <Card>

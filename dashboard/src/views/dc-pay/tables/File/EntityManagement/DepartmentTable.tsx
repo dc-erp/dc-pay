@@ -37,8 +37,6 @@ import { RootState, AppDispatch } from 'src/store'
 import { DepartmentType } from 'src/types/apps/File/EntityManagement/departmentTypes'
 
 
-// ** Custom Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
 
 import AddDepartment from 'src/views/dc-pay/forms/File/EntityManagement/AddDepartment'
 
@@ -62,10 +60,8 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 const UserList = () => {
     // ** State
     const [role, setRole] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [value] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
-    const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
     const [formData, setFormData] = useState({
         id: '',
@@ -307,11 +303,6 @@ return (
             })
         )
     }, [dispatch, value])
-
-    const handleFilter = useCallback((val: string) => {
-        setValue(val)
-    }, [])
-
 
     const handleRoleChange = useCallback((e: SelectChangeEvent) => {
         setRole(e.target.value)

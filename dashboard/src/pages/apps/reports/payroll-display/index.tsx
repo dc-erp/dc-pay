@@ -65,8 +65,8 @@ interface CellType {
 const UserList = () => {
     // ** State
     const [employee, setEmployee] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [value] = useState<string>('')
+    const [status,] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
 
     const columns = [
@@ -145,10 +145,7 @@ const UserList = () => {
     }, [dispatch])
 
 
-    const handleFilter = useCallback((val: string) => {
-        setValue(val)
-    }, [])
-
+  
     const handleEmployeeChange = useCallback((e: SelectChangeEvent) => {
         setEmployee(e.target.value)
     }, [])
@@ -173,9 +170,9 @@ const UserList = () => {
                                         inputProps={{ placeholder: 'Select Employee' }}
                                     >
                                          {
-                                            employeeStore.data.map(({ id, firstName, lastName }) => {
+                                            employeeStore.data.map(({ id, firstName, lastName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${firstName} ${lastName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${firstName} ${lastName}`}</MenuItem>
                                                 )
                                             })
                                         }

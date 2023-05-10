@@ -1,5 +1,5 @@
 // ** React Imports
-import { ChangeEvent, MouseEvent, useState, SyntheticEvent, useEffect } from 'react'
+import {useState, useEffect } from 'react'
 
 
 // ** MUI Imports
@@ -9,37 +9,17 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import FormLabel from '@mui/material/FormLabel'
 
 import InputLabel from '@mui/material/InputLabel'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import FormHelperText from '@mui/material/FormHelperText'
+
+
 
 import Checkbox from '@mui/material/Checkbox'
 import FormGroup from '@mui/material/FormGroup'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-
-
-import { Locale } from 'date-fns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-
-
-// ** Icons Imports
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import EyeOffOutline from 'mdi-material-ui/EyeOffOutline'
-
-
-// ** Icons Imports
-import Phone from 'mdi-material-ui/Phone'
-import EmailOutline from 'mdi-material-ui/EmailOutline'
-import AccountOutline from 'mdi-material-ui/AccountOutline'
-import MessageOutline from 'mdi-material-ui/MessageOutline'
 
 // ** Third Party Imports
 import * as yup from 'yup'
@@ -49,12 +29,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
-import Typography from '@mui/material/Typography'
 
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// Unorganized Imports
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
+
 
 // ** Store Imports
 import { useDispatch } from 'react-redux'
@@ -70,10 +48,6 @@ import { useSelector } from 'react-redux'
 import { fetchData as fetchMainParameterDefinitions } from 'src/store/apps/File/ParameterDefinition/MainParameterDefinition'
 import { fetchData as fetchSubParameterDefinition } from 'src/store/apps/File/ParameterDefinition/SubParameterDefinition'
 
-interface State {
-    password: string
-    showPassword: boolean
-}
 
 const schema = yup.object().shape({
     transactionCode: yup.string(),
@@ -114,37 +88,13 @@ const emptyValues = {
 }
 
 
-interface UserData {
-    transactionCode: string;
-    transactionName: string;
-    shortName: string;
-    transactionType: string;
-    updateType: string;
-    permanent: string;
-    taxable: string;
-    unTaxableLimit: string;
-    affectByLeave: string;
-    leaveDays: string;
-    affectBackPayroll: string;
-    affectBeneficiary: string;
-    transactionGroup: string;
-    glEntryBy: string;
-    directAccount: string;
-    contractGLAccount: string;
-}
-
-
 const AddUser = ({ formData }: any) => {
-    const user = useSelector((state: any) => state.user)
 
-    const [showPassword, setShowPassword] = useState<boolean>(false)
-
-    const [basicPicker, setBasicPicker] = useState<Date | null>(new Date())
 
 
     // ** State
-    const [plan, setPlan] = useState<string>('basic')
-    const [role, setRole] = useState<string>('subscriber')
+    const [plan] = useState<string>('basic')
+    const [role] = useState<string>('subscriber')
 
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
@@ -165,9 +115,7 @@ const AddUser = ({ formData }: any) => {
         )
     }, [dispatch])
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+
 
     const subParameters = useSelector((state:RootState) => state.subParameterDefinition)
     const mainParameters = useSelector((state: RootState) => state.mainParameterDefinition)
@@ -192,7 +140,6 @@ return filteredChild
 
     const {
         control,
-        setError,
         handleSubmit,
         reset,
         formState: { errors }
@@ -201,6 +148,10 @@ return filteredChild
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     // any type used
     const onSubmit = (data: any) => {
@@ -212,40 +163,7 @@ return filteredChild
         reset(emptyValues)
     }
 
-    const [values, setValues] = useState<State>({
-        password: '',
-        showPassword: false
-    })
 
-    const [confirmPassValues, setConfirmPassValues] = useState<State>({
-        password: '',
-        showPassword: false
-    })
-
-
-
-    const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value })
-    }
-
-    const handleConfirmPassChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
-        setConfirmPassValues({ ...confirmPassValues, [prop]: event.target.value })
-    }
-    const handleClickShowPassword = () => {
-        setValues({ ...values, showPassword: !values.showPassword })
-    }
-
-    const handleClickConfirmPassShow = () => {
-        setConfirmPassValues({ ...confirmPassValues, showPassword: !confirmPassValues.showPassword })
-    }
-
-    const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-    }
-
-
-    console.log(updateTypeOptions, "Rosie")
-    
 return (
         <Card>
             <CardHeader title='Add Transaction Definition' titleTypographyProps={{ variant: 'h6' }} />
@@ -270,7 +188,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.transactionCode && <FormHelperText sx={{ color: 'error.main' }}>{errors.transactionCode.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -291,7 +208,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.transactionName && <FormHelperText sx={{ color: 'error.main' }}>{errors.transactionName.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -312,7 +228,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.shortName && <FormHelperText sx={{ color: 'error.main' }}>{errors.shortName.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -333,9 +248,9 @@ return (
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    transactionTypeOptions.map(({ id, parameterName }: any) => {
+                                                    transactionTypeOptions.map(({ id, parameterName }: any, index: any) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -352,15 +267,15 @@ return (
                                     name='updateType'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <>
                                             <FormLabel sx={{ mb: 4 }} >Update Type</FormLabel>
                                             <RadioGroup row aria-label='controlled' name='controlled' value={value} onChange={onChange}>
                                             {
-                                                    updateTypeOptions.map(({ id, parameterName }: any) => {
+                                                    updateTypeOptions.map(({ id, parameterName }: any, index: any) => {
                                                        
                                                         return (
-                                                            <FormControlLabel value={id} control={<Radio />} label={parameterName} />
+                                                            <FormControlLabel key={index} value={id} control={<Radio />} label={parameterName} />
                                                         )
                                                     })
                                                 }
@@ -376,7 +291,7 @@ return (
                                     name='permanent'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <FormControlLabel
                                             label='Permanent'
                                             control={<Checkbox checked={value} onChange={onChange} name='controlled' />}
@@ -388,7 +303,7 @@ return (
                                     name='taxable'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange } }) => (
                                         <FormControlLabel
                                             label='Taxable'
                                             control={<Checkbox checked={value} onChange={onChange} name='controlled' />}
@@ -415,7 +330,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.unTaxableLimit && <FormHelperText sx={{ color: 'error.main' }}>{errors.unTaxableLimit.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12}>
@@ -424,7 +338,7 @@ return (
                                     name='affectByLeave'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange, } }) => (
                                         <FormControlLabel
                                             label='Affect By Leave'
                                             control={<Checkbox checked={value} onChange={onChange} name='controlled' />}
@@ -449,7 +363,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.leaveDays && <FormHelperText sx={{ color: 'error.main' }}>{errors.leaveDays.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={12}>
@@ -458,7 +371,7 @@ return (
                                     name='affectBackPayroll'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange, } }) => (
                                         <FormControlLabel
                                             label='Affect Back Payroll'
                                             control={<Checkbox checked={value} onChange={onChange} name='controlled' />}
@@ -469,7 +382,7 @@ return (
                                     name='affectBeneficiary'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange, } }) => (
                                         <FormControlLabel
                                             label='Beneficiary'
                                             control={<Checkbox checked={value} onChange={onChange} name='controlled' />}
@@ -497,9 +410,9 @@ return (
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    transactionGroupOptions.map(({ id, parameterName }: any) => {
+                                                    transactionGroupOptions.map(({ id, parameterName }: any, index: any) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -516,7 +429,7 @@ return (
                                     name='glEntryBy'
                                     control={control}
                                     rules={{ required: true }}
-                                    render={({ field: { value, onChange, onBlur } }) => (
+                                    render={({ field: { value, onChange, } }) => (
                                         <>
                                             <FormLabel>GL-Entry By</FormLabel>
                                             <RadioGroup row aria-label='controlled' name='controlled' value={value} onChange={onChange}>
@@ -548,7 +461,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.directAccount && <FormHelperText sx={{ color: 'error.main' }}>{errors.directAccount.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -569,7 +481,6 @@ return (
                                         />
                                     )}
                                 />
-                                {errors.contractGLAccount && <FormHelperText sx={{ color: 'error.main' }}>{errors.contractGLAccount.message}</FormHelperText>}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} sm={6}>

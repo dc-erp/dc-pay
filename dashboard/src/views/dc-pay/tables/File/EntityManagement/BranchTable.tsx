@@ -30,7 +30,6 @@ import { fetchData, deleteBranch } from 'src/store/apps/File/EntityManagement/Br
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { BranchType } from 'src/types/apps/File/EntityManagement/branchTypes'
 
 
@@ -56,7 +55,7 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [value, setValue] = useState<string>('')
+    const [value] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
 
     const [formData, setFormData] = useState({

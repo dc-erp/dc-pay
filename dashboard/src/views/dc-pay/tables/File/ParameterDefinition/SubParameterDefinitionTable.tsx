@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -35,7 +35,6 @@ import { fetchData, deleteSubParameterDefinition } from 'src/store/apps/File/Par
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { SubParameterDefinitionType } from 'src/types/apps/File/ParameterDefinition/subParameterDefinitionTypes'
 
 

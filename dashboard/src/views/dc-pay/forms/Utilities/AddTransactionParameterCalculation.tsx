@@ -45,7 +45,6 @@ import { fetchData as fetchTransactionDefinition } from 'src/store/apps/File/Tra
 import { AppDispatch } from 'src/store'
 
 import { useSelector } from 'react-redux'
-import { AnyAction } from '@reduxjs/toolkit'
 
 
 const schema = yup.object().shape({
@@ -105,9 +104,7 @@ const AddTransactionParameterCalculation = ({
         )
     }, [dispatch])
 
-    useEffect(() => {
-        reset(formData);
-    }, [formData])
+
 
 
 
@@ -121,6 +118,10 @@ const AddTransactionParameterCalculation = ({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     })
+
+    useEffect(() => {
+        reset(formData);
+    }, [formData, reset])
 
     // any type used
     const onSubmit = (data: any) => {
@@ -184,9 +185,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    transactionDefinitionStore.data.map(({ id, transactionName }) => {
+                                                    transactionDefinitionStore.data.map(({ id, transactionName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -238,9 +239,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    inputTransactionDefs.map(({ id, transactionName }) => {
+                                                    inputTransactionDefs.map(({ id, transactionName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -269,9 +270,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    calculationUnitOptions.map(({ id, parameterName }) => {
+                                                    calculationUnitOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -300,9 +301,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    transactionCalculationOptions.map(({ id, parameterName }) => {
+                                                    transactionCalculationOptions.map(({ id, parameterName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -332,9 +333,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    inputTransactionDefs.map(({ id, transactionName }) => {
+                                                    inputTransactionDefs.map(({ id, transactionName }, index) => {
                                                         return (
-                                                            <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                         )
                                                     })
                                                 }
@@ -364,9 +365,9 @@ return filteredChild
                                                 onChange={onChange}
                                             >
                                                 {
-                                                    transactionCalculationOptions.map(({ id, parameterName }) => {
+                                                    transactionCalculationOptions.map(({ id, parameterName , index}) => {
                                                         return (
-                                                            <MenuItem value={id}>{parameterName}</MenuItem>
+                                                            <MenuItem key={index} value={id}>{parameterName}</MenuItem>
                                                         )
                                                     })
                                                 }

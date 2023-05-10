@@ -132,7 +132,7 @@ return (
                 q: value,
             })
         )
-    }, [dispatch, role])
+    }, [dispatch, role, value])
 
     const roleStore = useSelector((state: RootState) => state.role)
 
@@ -164,9 +164,9 @@ return (
                                         onChange={handleRoleChange}
                                         inputProps={{ placeholder: 'Select Role' }}
                                     >
-                                        {roleStore.data.map((i: any, index) => {
+                                        {roleStore.data.map((i: any, index: any) => {
                                             return (
-                                                <MenuItem value={i.id}>{i.roleName}</MenuItem>
+                                                <MenuItem key={index} value={i.id}>{i.roleName}</MenuItem>
                                             )
                                         })}
 

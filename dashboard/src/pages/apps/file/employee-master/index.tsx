@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -20,7 +20,6 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Icons Imports
 // import Laptop from 'mdi-material-ui/Laptop'
@@ -41,7 +40,6 @@ import { fetchData, deleteEmployee } from 'src/store/apps/File/EmployeeMaster'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { EmployeesType } from 'src/types/apps/File/employeesTypes'
 
 // ** Custom Components Imports
@@ -69,9 +67,9 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [role, setRole] = useState<string>('')
+    const [role] = useState<string>('')
     const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [status] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
     const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 

@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -34,12 +34,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 // ** Store Imports
 import { useDispatch, useSelector } from 'react-redux'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
 import { fetchData, deleteMembership } from 'src/store/apps/Tasks/Membership'
@@ -47,12 +42,10 @@ import { fetchData as fetchEmployee } from 'src/store/apps/File/EmployeeMaster'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { MembershipType } from 'src/types/apps/Tasks/membershipTypes'
 
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/user/list/TableHeader'
-import AddUserDrawer from 'src/views/apps/user/list/AddUserDrawer'
 
 
 import AddMembership from 'src/views/dc-pay/forms/Tasks/AddMembership'
@@ -184,7 +177,7 @@ const UserList = () => {
             field: 'employeeFirstName',
             headerName: 'Employee',
             renderCell: ({ row }: CellType) => {
-                const { id, employeeFirstName, employeeLastName } = row
+                const {  employeeFirstName, employeeLastName } = row
                 
 return (
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -296,9 +289,9 @@ return (
                                         inputProps={{ placeholder: 'Select Employee' }}
                                     >
                                         {
-                                            employeeStore.data.map(({ id, firstName, lastName }) => {
+                                            employeeStore.data.map(({ id, firstName, lastName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${firstName} ${lastName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${firstName} ${lastName}`}</MenuItem>
                                                 )
                                             })
                                         }
@@ -319,9 +312,9 @@ return (
                                         inputProps={{ placeholder: 'Select Role' }}
                                     >
                                         {
-                                            transactionDefinitionStore.data.map(({ id, transactionName }) => {
+                                            transactionDefinitionStore.data.map(({ id, transactionName }, index) => {
                                                 return (
-                                                    <MenuItem value={id}>{`${transactionName}`}</MenuItem>
+                                                    <MenuItem key={index} value={id}>{`${transactionName}`}</MenuItem>
                                                 )
                                             })
                                         }

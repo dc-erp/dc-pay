@@ -32,8 +32,6 @@ import { fetchData, deleteMenuLevelOne } from 'src/store/apps/Settings/GeneralSe
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
-
 import AddMenuLevelOne from 'src/views/dc-pay/forms/Settings/GeneralSetup/MenuSetup/AddMenuLevelOne'
 
 
@@ -56,11 +54,8 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [role, setRole] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
+    const [value] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
-    const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
     const [formData, setFormData] = useState({
         id: '',
@@ -68,7 +63,7 @@ const UserList = () => {
     });
 
 
-    const RowOptions = ({ id, menuTitle, branchName }: any) => {
+    const RowOptions = ({ id, menuTitle }: any) => {
         // ** Hooks
         const dispatch = useDispatch<AppDispatch>()
 

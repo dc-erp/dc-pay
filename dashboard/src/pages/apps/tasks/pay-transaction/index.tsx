@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useEffect, MouseEvent, } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
@@ -15,31 +15,9 @@ import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
+
 import CardContent from '@mui/material/CardContent'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icons Imports
-// import Laptop from 'mdi-material-ui/Laptop'
-// import ChartDonut from 'mdi-material-ui/ChartDonut'
-// import CogOutline from 'mdi-material-ui/CogOutline'
-// import EyeOutline from 'mdi-material-ui/EyeOutline'
-// import DotsVertical from 'mdi-material-ui/DotsVertical'
-// import PencilOutline from 'mdi-material-ui/PencilOutline'
-// import DeleteOutline from 'mdi-material-ui/DeleteOutline'
-// import AccountOutline from 'mdi-material-ui/AccountOutline'
-
-
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
 import { fetchData, deletePayTransaction } from 'src/store/apps/Tasks/PayTransaction'
@@ -48,19 +26,11 @@ import { fetchData as fetchTransactionDefinition } from 'src/store/apps/File/Tra
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
 import { PayTransactionType } from 'src/types/apps/Tasks/payTransactionTypes'
 
 
-interface BranchesType {
-    id: string;
-    parameterName: string;
-}
-
-// ** Custom Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import AddUserDrawer from 'src/views/apps/user/list/AddUserDrawer'
-
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import AddPayTransaction from 'src/views/dc-pay/forms/Tasks/AddPayTransaction'
 
@@ -85,11 +55,10 @@ const MenuItemLink = styled('a')(({ theme }) => ({
 
 const UserList = () => {
     // ** State
-    const [employee, setEmployee] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [transaction, setTransaction] = useState<string>('')
+    const [employee] = useState<string>('')
+    const [value] = useState<string>('')
+    const [transaction] = useState<string>('')
     const [pageSize, setPageSize] = useState<number>(10)
-    const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
     const [formData, setFormData] = useState({
         id: '',
@@ -235,14 +204,9 @@ const UserList = () => {
     const dispatch = useDispatch<AppDispatch>()
     const store = useSelector((state: RootState) => state.payTransaction)
 
-    const deductionStore = store.data.filter(({transactionTypeName}) =>( transactionTypeName === "Deduction Quantity" ||  transactionTypeName === "Deduction Amount"))
-    const earningStore = store.data.filter(({transactionTypeName}) =>( transactionTypeName === "Earning Quantity" ||  transactionTypeName === "Earning Amount"))
+    const deductionStore = store.data.filter(({transactionTypeName}: any) =>( transactionTypeName === "Deduction Quantity" ||  transactionTypeName === "Deduction Amount"))
+    const earningStore = store.data.filter(({transactionTypeName}: any) =>( transactionTypeName === "Earning Quantity" ||  transactionTypeName === "Earning Amount"))
 
-
-    console.log(store.data, "WHY WHY")
-
-
-    console.log(earningStore, "Earning Store")
     useEffect(() => {
         dispatch(
             fetchData({
