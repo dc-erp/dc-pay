@@ -20,14 +20,14 @@ jobs:
       run: |
         cd dashboard && npm ci
         cd ../main-api && npm ci
-    - name: Test SSH Connection
-      uses: appleboy/ssh-action@v0.3.0
+    - name: Deploy to EC2 instance
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          echo "SSH connection successful"
+          echo "SSH Connection Succesful"
     - name: Deploy to EC2 instance
       uses: appleboy/ssh-action@master
       with:
