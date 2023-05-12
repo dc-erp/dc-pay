@@ -23,6 +23,6 @@ jobs:
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd /projects/dc-pay
+          cd /projects/dc-pay/dashbaord
           git pull
-          cd dashboard && npm build
+          npm i && npm build
