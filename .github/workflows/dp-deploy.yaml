@@ -24,7 +24,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           echo "SSH Connection Succesful"
-    - name: Deploy to EC2 instance
+    - name: List the project
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
@@ -32,6 +32,3 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           ls
-          cd ~/projects/dc-pay/dashbaord
-          git pull
-          npm run build
