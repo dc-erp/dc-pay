@@ -31,4 +31,6 @@ jobs:
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          ls
+          cd projects/dc-pay/dashbaord
+          git pull
+          npm run build
