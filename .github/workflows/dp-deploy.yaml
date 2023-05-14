@@ -16,6 +16,8 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18.x'
+    - name: Verify Node.js version
+      run: node -v
     - name: Test SSH Connection
       uses: appleboy/ssh-action@master
       with:
