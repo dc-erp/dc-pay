@@ -33,7 +33,4 @@ jobs:
         script: |
           cd projects/dc-pay/dashboard
           git pull
-          npm install
-          npm run build
-
-          
+          npm ci
