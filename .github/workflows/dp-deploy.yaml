@@ -18,6 +18,8 @@ jobs:
         node-version: '18.x'
     - name: Verify Node.js version
       run: node -v
+    - name: Verify NPM version
+      run: npm -v
     - name: Test SSH Connection
       uses: appleboy/ssh-action@master
       with:
