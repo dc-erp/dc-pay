@@ -37,5 +37,4 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           cd projects/dc-pay/dashboard
-          git pull
-          npm ci
+          npm run build
