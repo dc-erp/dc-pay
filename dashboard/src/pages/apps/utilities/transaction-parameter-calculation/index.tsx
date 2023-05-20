@@ -222,7 +222,7 @@ return (
             renderCell: ({ row }: CellType) => {
                 return (
                     <Typography noWrap variant='body2'>
-                        {row.firstOption}
+                        {row.firstOptionName}
                     </Typography>
                 )
             }
@@ -235,7 +235,7 @@ return (
             renderCell: ({ row }: CellType) => {
                 return (
                     <Typography noWrap variant='body2'>
-                        {row.calculationUnit}
+                        {row.calculationUnitName}
                     </Typography>
                 )
             }
@@ -264,7 +264,7 @@ return (
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-                            {row.secondOption}
+                            {row.secondOptionName}
                         </Typography>
                     </Box>
                 )

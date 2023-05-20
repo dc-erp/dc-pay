@@ -116,30 +116,24 @@ export const getAllFromOrganization = async (organizationId: string): Promise<an
 }
 
 
-// export const getAllFromOrganization = async (organizationId: string): Promise<any> => {
-//     const res = await pool.query(`
-//     SELECT 
-//     ua.id, 
-//     ua.first_name, 
-//     ua.last_name, 
-//     ua.email, 
-//     ru.role_id, 
-//     ur.role_name, 
-//     rb.branch_id
-//     FROM user_accounts ua
-//     JOIN role_user ru ON ua.id = ru.user_id
-//     JOIN user_roles ur ON ru.role_id = ur.id
-//     JOIN role_branch rb ON ru.role_id = rb.role_id
-//     WHERE ua.organization_id = $1`,
-//         [organizationId])
-//     return res.rows
-// }
-
-export const getInfo = async (userId: string) => {
-    const userRes = await pool.query('SELECT * FROM user_accounts WHERE id=$1', [userId])
-    const user = userRes.rows[0]
-    return user
+export const getInfo = async (userId: string): Promise<any> => {
+    const res = await pool.query(`
+    SELECT 
+    ua.id, 
+    ua.first_name, 
+    ua.last_name, 
+    ua.email, 
+    ru.role_id, 
+    ur.role_name
+    FROM user_accounts ua
+    JOIN role_user ru ON ua.id = ru.user_id
+    JOIN user_roles ur ON ru.role_id = ur.id
+    WHERE ua.id = $1`,
+        [userId])
+    return res.rows[0]
 }
+
+
 
 export const getUserByUserName = async (userName: string) => {
     const userRes = await pool.query('SELECT * FROM tbl_user WHERE user_name=$1', [userName])
