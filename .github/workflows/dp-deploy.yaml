@@ -32,10 +32,10 @@ jobs:
       run: |
          cd dashboard && npm run build
     - name: Deploy to EC2 instance
-      uses: appleboy/ssh-action@master
+      uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        local-path: .next/
-        remote-path: projects/dc-pay/dashboard/build
+        source: ./.next/
+        target: ./projects/dc-pay/dashboard
