@@ -31,11 +31,11 @@ jobs:
       run: |
          cd dashboard && npm run build
     - name: Deploy to EC2 instance
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.SSH_IP_ADDRESS }}
-            username: ${{ secrets.SSH_USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            script: |
-              mkdir -p /var/www/html
-              rsync -rav -e "ssh -o StrictHostKeyChecking=no" .next/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:/var/www/html/
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_IP_ADDRESS }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          mkdir -p /var/www/html
+          rsync -rav -e "ssh -o StrictHostKeyChecking=no" .next/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:/var/www/html/
