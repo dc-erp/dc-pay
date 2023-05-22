@@ -34,8 +34,8 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
-        username: ${{ secrets.SSH_USERNAME }}
+        username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           mkdir -p /var/www/html
-          rsync -rav -e "ssh -o StrictHostKeyChecking=no" .next/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:/var/www/html/
+          rsync -rav -e "ssh -o StrictHostKeyChecking=no" .next/ ${{ secrets.SSH_USER_NAME }}@${{ secrets.SSH_IP_ADDRESS }}:/var/www/html/
