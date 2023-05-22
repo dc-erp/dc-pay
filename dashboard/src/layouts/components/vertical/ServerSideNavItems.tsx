@@ -1,8 +1,8 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
-// ** Axios Import
-import axios from 'axios'
+// ** Utils Import
+import apiRequest from 'src/utils/apiRequest'
 
 // ** Type Import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
@@ -12,14 +12,29 @@ const ServerSideNavItems = () => {
   const [menuItems, setMenuItems] = useState<VerticalNavItemsType>([])
 
   useEffect(() => {
-    axios.get('/api/vertical-nav/data').then(response => {
+    apiRequest.get('/auth/navigation').then(response => {
       const menuArray = response.data
 
-      setMenuItems(menuArray)
+      const finalMenuArray = (items: VerticalNavItemsType) => {
+        return items.map((item: any) => {
+          if (item.icon) {
+            // @ts-ignore
+            // item.icon = Icons[item.icon]
+            if (item.children) {
+              finalMenuArray(item.children)
+            }
+            return item
+          }
+
+          return item
+        })
+      }
+
+      setMenuItems(finalMenuArray(menuArray))
     })
   }, [])
 
-  return { menuItems }
+  return menuItems
 }
 
 export default ServerSideNavItems

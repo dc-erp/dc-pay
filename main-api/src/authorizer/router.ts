@@ -7,11 +7,6 @@ const createError = require('http-errors')
 
 const router = Router()
 
-// const jwtConfig = {
-//     secret: process.env.NEXT_PUBLIC_JWT_SECRET,
-//     expirationTime: process.env.NEXT_PUBLIC_JWT_EXPIRATION,
-//     refreshTokenSecret: process.env.NEXT_PUBLIC_JWT_REFRESH_TOKEN_SECRET
-// }
 
 router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -40,7 +35,6 @@ router.get('/me', async (req: Request, res, next) => {
         const requestUser = req.user as any
        
         const user = await userService.getInfo(requestUser.id)
-        console.log(user)
         const accessToken = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRATION })
         
         const userData = {

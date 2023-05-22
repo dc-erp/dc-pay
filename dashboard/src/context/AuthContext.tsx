@@ -54,7 +54,7 @@ const AuthProvider = ({ children }: Props) => {
             window.localStorage.setItem(authConfig.storageTokenKeyName, response.data.accessToken)
             setUser({ ...response.data.userData })
           })
-          .catch((e) => {
+          .catch(() => {
             window.localStorage.removeItem('userData')
             window.localStorage.removeItem('refreshToken')
             window.localStorage.removeItem('accessToken')

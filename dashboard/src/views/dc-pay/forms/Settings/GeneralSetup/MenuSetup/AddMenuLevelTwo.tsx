@@ -104,8 +104,6 @@ const AddMenuLevelTwo = ({
 
     const menuLevelOnes = useSelector((state: RootState) => state.menuLevelOne)
 
-    console.log(menuLevelOnes)
-    
 return (
         <Card>
             <CardHeader title='Add Menu Level 2' titleTypographyProps={{ variant: 'h6' }} />

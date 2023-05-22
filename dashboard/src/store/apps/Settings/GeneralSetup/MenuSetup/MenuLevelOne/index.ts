@@ -17,9 +17,7 @@ interface Redux {
 // ** Fetch menuLevelOne
 export const fetchData = createAsyncThunk('appMenuLevelOne/fetchData', async (params: any) => {
   const response = await apiRequest.get(`settings/general-setup/menu-setup/menu-level-one`, { params })
-  console.log(response.data, "hello")
-  
-return response.data
+  return response.data
 })
 
 // ** Add menuLevelOne

@@ -50,7 +50,7 @@ export const getInitialProps = async (url: any, ctx: any, Router: any, options: 
         return res
         
     } catch (e: any) {
-        console.log(e)
+        console.error(e)
     }
 }
 export const postData = ('u')
