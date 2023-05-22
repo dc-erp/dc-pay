@@ -16,7 +16,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: '18.x'
-        npm-version: '9.x'
     - name: Test SSH Connection
       uses: appleboy/ssh-action@master
       with:
@@ -32,10 +31,11 @@ jobs:
       run: |
          cd dashboard && npm run build
     - name: Deploy to EC2 instance
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.SSH_IP_ADDRESS }}
-        username: ${{ secrets.SSH_USER_NAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        source: ./.next/
-        target: ./projects/dc-pay/dashboard
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SSH_IP_ADDRESS }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            script: |
+              mkdir -p /var/www/html
+              rsync -rav -e "ssh -o StrictHostKeyChecking=no" .next/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:/var/www/html/
