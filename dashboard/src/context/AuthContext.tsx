@@ -70,7 +70,7 @@ const AuthProvider = ({ children }: Props) => {
       }
     }
     initAuth()
-  }, [])
+  }, [router])
 
   const handleLogin = (params: LoginParams, errorCallback?: ErrCallbackType) => {
     axios

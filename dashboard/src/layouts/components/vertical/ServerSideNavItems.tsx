@@ -1,6 +1,7 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
+
 // ** Utils Import
 import apiRequest from 'src/utils/apiRequest'
 
@@ -23,6 +24,7 @@ const ServerSideNavItems = () => {
             if (item.children) {
               finalMenuArray(item.children)
             }
+           
             return item
           }
 
