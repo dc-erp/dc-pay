@@ -25,12 +25,18 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           echo "SSH Connection Succesful"
-    - name: Deploy to EC2 instance
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_IP_ADDRESS }}
-        username: ${{ secrets.SSH_USER_NAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd projects/dc-pay/dashboard
-          yarn install
+    - name: Install Dependencies
+      run: |
+         cd dashboard && npm ci
+    - name: Buidl Dashboard
+      run: |
+         cd dashboard && npm run build
+    # - name: Deploy to EC2 instance
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.SSH_IP_ADDRESS }}
+    #     username: ${{ secrets.SSH_USER_NAME }}
+    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+    #     script: |
+    #       cd projects/dc-pay/dashboard
+    #       yarn install
