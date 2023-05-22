@@ -36,6 +36,6 @@ jobs:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key : ${{ secrets.SSH_PRIVATE_KEY }} 
-        source: ./dashboard/.next
+        source: ./dashboard
         target: "projects/dc-pay"
         overwrite: true
