@@ -28,15 +28,14 @@ jobs:
     - name: Install Dependencies
       run: |
          cd dashboard && npm ci
-    - name: Buidl Dashboard
+    - name: Build Dashboard
       run: |
          cd dashboard && npm run build
-    # - name: Deploy to EC2 instance
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ${{ secrets.SSH_IP_ADDRESS }}
-    #     username: ${{ secrets.SSH_USER_NAME }}
-    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     script: |
-    #       cd projects/dc-pay/dashboard
-    #       yarn install
+    - name: Deploy to EC2 instance
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_IP_ADDRESS }}
+        username: ${{ secrets.SSH_USER_NAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        local-path: .next/
+        remote-path: projects/dc-pay/dashboard/build
