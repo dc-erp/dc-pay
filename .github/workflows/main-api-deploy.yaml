@@ -44,5 +44,5 @@ jobs:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SERVER_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}   
-        script: pm2 reload 0
+        script: pm2 reload 1
       
