@@ -37,7 +37,7 @@ jobs:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: cd main-api/dc-pay && npm run build
+        script: cd dc-pay/main-api && npm run compile
     - name: Reload pm2
       uses: appleboy/ssh-action@master
       with:
