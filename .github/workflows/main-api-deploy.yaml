@@ -30,14 +30,14 @@ jobs:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: cd projects/dc-pay && git pull origin main
+        script: cd dc-pay 
     - name: Building on Server
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: cd main-api && npm run build
+        script: cd main-api/dc-pay && npm run build
     - name: Reload pm2
       uses: appleboy/ssh-action@master
       with:
