@@ -7,7 +7,10 @@ export type TransactionParameterCalculationType = {
     secondTransaction: string;
     thirdTransaction: string;
     calculationUnit: string;
+    calculationUnitName: string;
     firstOption: string;
+    firstOptionName: string;
     secondOption: string;
+    secondOptionName: string;
     rate: string;
   }

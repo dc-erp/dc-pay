@@ -7,6 +7,49 @@ const createError = require('http-errors')
 
 const router = Router()
 
+
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { isMatch, user } = await authorizerDao.comparePassword(
+            req.body?.email,
+            req.body?.password
+        )
+        if (!isMatch) {
+            throw createError.Unauthorized('Invalid Username and/or Password')
+        }
+        const accessToken = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRATION })
+
+        res.send({ 
+            accessToken,
+            userData: { ...user, password: undefined }
+        })
+    } catch (err) {
+        res.status(400).send(err)
+        next(err)
+    }
+})
+
+
+router.get('/me', async (req: Request, res, next) => {
+    try {
+        const requestUser = req.user as any
+       
+        const user = await userService.getInfo(requestUser.id)
+        const accessToken = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRATION })
+        
+        const userData = {
+            ...user,
+            role: user.role_name.toLowerCase(),
+            branchId: user.branch_id
+        }
+        res.send({accessToken, userData})
+    } catch (err) {
+        res.status(400).send(err)
+        next(err)
+    }
+})
+
+
 const defaultNavMenu = [
     {
         title: 'File',
@@ -204,46 +247,8 @@ router.get('/navigation', async (req: Request, res: Response, next: NextFunction
 })
 
 
-router.get('/me', async (req: Request, res, next) => {
-    try {
-        const requestUser = req.user as any
-        if (!requestUser || typeof requestUser.id !== 'string')
-            throw new Error("User doesn't exist")
-        const user = await userService.getInfo(requestUser.id)
-        res.send({ userData: {
-            id: user.id,
-            role: user.role_name,
-            fullName: `${user.first_name} ${user.last_name}`,
-            username: user.email,
-        }, })
-    } catch (err) {
-        res.status(400).send(err)
-        next(err)
-    }
-})
 
 
-router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { isMatch, user } = await authorizerDao.comparePassword(
-            req.body?.email,
-            req.body?.password
-        )
-        if (!isMatch)
-            throw createError.Unauthorized('Invalid Username and/or Password')
-        const accessToken = jwt.sign({ id: user.id }, process.env.NEXT_PUBLIC_JWT_SECRET as string, { expiresIn: process.env.NEXT_PUBLIC_JWT_EXPIRATION })
-        // const refreshToken = await jwt.signRefreshToken(user)
-
-        res.send({ 
-            accessToken,
-            userData: { ...user, password: undefined }
-
-        })
-    } catch (err) {
-        res.status(400).send(err)
-        next(err)
-    }
-})
 
 
 export default router

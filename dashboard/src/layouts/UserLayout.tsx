@@ -16,6 +16,7 @@ import HorizontalNavItems from 'src/navigation/horizontal'
 // ** Component Import
 // Uncomment the below line (according to the layout type) when using server-side menu
 // import ServerSideVerticalNavItems from './components/vertical/ServerSideNavItems'
+
 // import ServerSideHorizontalNavItems from './components/horizontal/ServerSideNavItems'
 
 import VerticalAppBarContent from './components/vertical/AppBarContent'
@@ -34,7 +35,8 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
   const { settings, saveSettings } = useSettings()
 
   // ** Vars for server side navigation
-  // const { menuItems: verticalMenuItems } = ServerSideVerticalNavItems()
+  // const verticalMenuItems = ServerSideVerticalNavItems()
+  
   // const { menuItems: horizontalMenuItems } = ServerSideHorizontalNavItems()
 
   /**

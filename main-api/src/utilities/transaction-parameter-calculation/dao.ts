@@ -58,11 +58,17 @@ export const getAllFromOrganization = async (organizationId: string): Promise<an
     td2.transaction_name as second_transaction_name,
     td2.transaction_code as second_transaction_code,
     td3.transaction_name as third_transaction_name,
-    td3.transaction_code as third_transaction_code
+    td3.transaction_code as third_transaction_code,
+    pd1.parameter_name as calculation_unit_name,
+    pd2.parameter_name as first_option_name,
+    pd3.parameter_name as second_option_name
     FROM transaction_calculation tc
     INNER JOIN transaction_definition td1 ON tc.first_transaction_id = td1.id
     INNER JOIN transaction_definition td2 ON tc.first_transaction_id = td2.id
     INNER JOIN transaction_definition td3 ON tc.first_transaction_id = td3.id
+    INNER JOIN parameter_definition pd1 ON tc.calculation_unit = pd1.id
+    INNER JOIN parameter_definition pd2 ON tc.first_option = pd2.id
+    INNER JOIN parameter_definition pd3 ON tc.second_option = pd3.id
     WHERE td1.organization_id=$1`,
         [organizationId])
     return transactionParameterCalculations

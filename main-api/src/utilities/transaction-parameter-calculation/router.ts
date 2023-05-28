@@ -24,7 +24,10 @@ router.get('/',
                 third_transaction_name,
                 third_transaction_code,
                 calculation_unit,
+                calculation_unit_name,
                 first_option,
+                first_option_name,
+                second_option_name,
                 second_option,
                 rate
             }) => ({
@@ -39,8 +42,11 @@ router.get('/',
                 thirdTransactionCode: third_transaction_code,
                 thirdTransactionName: third_transaction_name,
                 calculationUnit: calculation_unit,
+                calculationUnitName: calculation_unit_name,
                 firstOption: first_option,
                 secondOption: second_option,
+                firstOptionName: first_option_name,
+                secondOptionName: second_option_name,
                 rate
             }));
             const filteredData = renamedTransactionParameterCalculations.filter(

@@ -15,7 +15,6 @@ interface Redux {
 // ** Fetch Departments
 export const fetchData = createAsyncThunk('appDepartments/fetchData', async (params: any) => {
   const response = await apiRequest.get(`file/entity-management/department`, { params })
-  console.log(response)
   
 return response.data
 })
