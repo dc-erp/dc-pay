@@ -42,7 +42,7 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_IP_ADDRESS }}
-        username: ${{ secrets.SERVER_USERNAME }}
+        username: ${{ secrets.SERVER_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}   
         script: pm2 reload 1
       
