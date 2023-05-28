@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 export const apiRequest = axios.create({
-    baseURL: 'http://localhost:4000/api/v1',
-    withCredentials: true,
+    baseURL: 'http://188.166.173.4/api/v1',
 })
 
 interface userData {
@@ -33,8 +32,7 @@ apiRequest.interceptors.request.use((config: any) => {
 export default apiRequest
 
 const buildDefaultParams = (req: any) => ({
-    baseURL: 'http://localhost:4000/api/v1',
-    withCredentials: true,
+    baseURL: 'http://188.166.173.4/api/v1',
     headers: req ? req.headers ? req.headers.cookie ? { cookie: req.headers.cookie } : undefined : undefined : undefined
 })
 
